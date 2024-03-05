@@ -1,18 +1,19 @@
-'use client';
-import LeftNavigation from '../components/left/LeftNavigation';
-import RightComponent from '../components/right/RightComponent';
-import React from 'react';
+import Link from 'next/link';
 
-const styles: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "row",
+const styles = {
+  height:'100vh',
+  display: 'flex',
+  gap:'10px', // 아이템들 사이 간격
+  backgroundColor: 'rgb(255,255,255)',
 };
 
 export default function Home() {
   return (
     <div style={styles}>
-      <LeftNavigation />
-      <RightComponent />
+      <Link href="/">Home</Link>
+      <Link href="/auth/login">Log in</Link>
+      <Link href="/user/register">Sign in</Link>
+      <Link href="/mypage">My Page</Link>
     </div>
   );
 }
