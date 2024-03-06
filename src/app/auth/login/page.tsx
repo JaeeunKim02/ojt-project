@@ -1,7 +1,8 @@
-'use client'; //TODO: effective typescript 책
+'use client'; 
 import React, {useState} from 'react';
 import {Button, TextField} from '@mui/material';
 import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
+import axios, {AxiosError} from 'axios'; // fetch 보다 axios 사용을 주로 선호
 
 const styles : React.CSSProperties = {
     height:'100vh',
@@ -15,39 +16,41 @@ const styles : React.CSSProperties = {
     backgroundColor: 'rgb(255,255,255)',
 }
 
+interface LoginResponseDto{ // swagger 에 있는 response schema
+  user:{
+    id:string,
+    name: string,
+  },
+  accessToken: string,
+}
+
 function LoginPage() {
-    const [id,setId]=useState('');
-    const [password, setPassword]=useState('');
+    const [id,setId]=useState<string>('');
+    const [password, setPassword]=useState<string>('');
     const router=useRouter();
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // TODO: 폼 제출 기본 동작 방지, preventDefault 굳이 써야 하는 이유?
+        e.preventDefault(); // 폼 제출 기본 동작 방지
     
         try {
-          const response = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', { // axios 사용 찾아보기
+          const res = await axios('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', { 
             method: 'POST',
             headers: { //http 요청의 헤더 설정
-              'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
-              // 'accept' : 'application/json' ,
+              'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄. 사실 axios 는 기본 설정되어 있음. 생략 가능.
+              'accept' : 'application/json' ,
             },
-            body: JSON.stringify({ 
+            data: { 
               "id": id, 
               "password": password
-            }), //입력된 아이디, 비번을 json형태로 변환해서 요청
+            }, //입력된 아이디, 비번을 json형태로 변환해서 요청
           })
-          .then(res=>{
-            if(!res.ok){
-              throw new Error('Login Failed'); //TODO:async await 공부 & then 없애보기
-            }
-            return res.json()
-          })
-          .then(res=>{
-            console.log(res)
-            localStorage.setItem('accessToken', res.accessToken) //TODO: res.accessToken type any 없애기
-            router.push('/');
-          })
+          const loginResponse : LoginResponseDto = res.data;
+          console.log(loginResponse);
+          localStorage.setItem('accessToken', loginResponse.accessToken)
+          router.push('/');
+      
         }catch(error) {
-            console.error('Login Error:', error); //TODO:error 발생시 동작 조금 더 생각하기
+            console.error('Login Error:', axios.isAxiosError(error) ? error.response?.data : error);
         }
     };
 

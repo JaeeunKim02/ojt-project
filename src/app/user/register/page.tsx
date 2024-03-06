@@ -1,4 +1,4 @@
-'use client'; //TODO: sign up으로 고치기, login이랑 컴포넌트 비슷함. 합쳐보기?
+'use client';
 import React, {useState} from 'react';
 import {Button, TextField} from '@mui/material';
 import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
@@ -15,18 +15,17 @@ const styles : React.CSSProperties = {
     backgroundColor: 'rgb(255,255,255)',
 }
 
-function SigninPage() {
+function SignupPage() {
     const [id,setId]=useState('');
     const [password, setPassword]=useState('');
     const [name, setName]=useState('');
     const router=useRouter();
 
-    const handleSignin = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // 폼 제출 기본 동작 방지
     
         try {
           const response = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/user/register', {
-            // mode:'no-cors',
             method: 'POST',
             headers: { //http 요청의 헤더 설정
               'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
@@ -41,7 +40,7 @@ function SigninPage() {
           .then(res=>{
             console.log(res);
             if(!res.ok){
-              throw new Error('Signin Failed');
+              throw new Error('Signup Failed');
             }
             return res.json()
           })
@@ -50,21 +49,21 @@ function SigninPage() {
             router.push('/');
           })
         }catch(error) {
-            console.error('Signin Error:', error);
+            console.error('Signup Error:', error);
         }
     };
 
     return(
     <div style={styles}>
-        <h2>Sign in</h2>
-        <form onSubmit={handleSignin} style={{display:'flex', alignItems:'center', flexDirection:'column', gap:'10px'}}>
+        <h2>Sign up</h2>
+        <form onSubmit={handleSignup} style={{display:'flex', alignItems:'center', flexDirection:'column', gap:'10px'}}>
             <TextField id="name" label="name" variant="outlined" value={name} onChange={(e)=>setName(e.target.value)}/>
             <TextField id="id" label="id" variant="outlined" value={id} onChange={(e)=>setId(e.target.value)}/>
             <TextField id="password" label="password" variant="filled" value={password} onChange={(e)=>setPassword(e.target.value)}/>
-            <Button type="submit" variant="contained" style={{ backgroundColor: '#1976d2', color: '#fff' }}>SIGN IN</Button>
+            <Button type="submit" variant="contained" style={{ backgroundColor: '#1976d2', color: '#fff' }}>SIGN UP</Button>
         </form>
     </div>
     );
 }
 
-export default SigninPage;
+export default SignupPage;

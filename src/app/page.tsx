@@ -1,11 +1,11 @@
-'use client'; //TODO : use server 와 차이 공부
+'use client'; //TODO : use server 와 use client인 컴포넌트 구분해주기
 import Link from 'next/link';//TODO prettier
 import {useRouter} from 'next/navigation';
 import {Button} from '@mui/material';
 import React,{useState, useEffect} from 'react';
 
 const styles = {
-  height:'100vh',
+  height:'75px',
   display: 'flex',
   gap:'10px', // 아이템들 사이 간격
   backgroundColor: 'rgb(255,255,255)',
@@ -23,7 +23,7 @@ export default function Home() {
     // 로컬 스토리지에서 accessToken 존재 여부 확인
     const token = localStorage.getItem('accessToken');
     setIslogin(!!token);
-  }, []); //TODO: 빈괄호 리렌더링 될 때마다?
+  }, []); // 빈 배열일 경우 컴포넌트가 처음 렌더링될 때에만(마운트될 때에만) 함수가 호출됨
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -35,7 +35,7 @@ export default function Home() {
     <div style={styles}>
       <Link href="/">Home</Link>
       {isLogin ? (<Button onClick={handleLogout}>LOG OUT</Button>) : (<Button href="/auth/login">LOG IN</Button>) }
-      <Link href="/user/register">Sign in</Link>
+      <Link href="/user/register">Sign up</Link>
       {isLogin ? (<Button href="/mypage">My Page</Button>) : (<Button href="/auth/login">My Page</Button>) }
     </div>
   );
