@@ -1,4 +1,4 @@
-'use client';
+'use client'; //TODO: sign up으로 고치기, login이랑 컴포넌트 비슷함. 합쳐보기?
 import React, {useState} from 'react';
 import {Button, TextField} from '@mui/material';
 import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.

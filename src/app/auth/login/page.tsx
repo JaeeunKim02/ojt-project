@@ -1,4 +1,4 @@
-'use client';
+'use client'; //TODO: effective typescript 책
 import React, {useState} from 'react';
 import {Button, TextField} from '@mui/material';
 import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
@@ -21,10 +21,10 @@ function LoginPage() {
     const router=useRouter();
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // 폼 제출 기본 동작 방지
+        e.preventDefault(); // TODO: 폼 제출 기본 동작 방지, preventDefault 굳이 써야 하는 이유?
     
         try {
-          const response = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', {
+          const response = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', { // axios 사용 찾아보기
             method: 'POST',
             headers: { //http 요청의 헤더 설정
               'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
@@ -37,17 +37,17 @@ function LoginPage() {
           })
           .then(res=>{
             if(!res.ok){
-              throw new Error('Login Failed');
+              throw new Error('Login Failed'); //TODO:async await 공부 & then 없애보기
             }
             return res.json()
           })
           .then(res=>{
             console.log(res)
-            localStorage.setItem('accessToken', res.accessToken)
+            localStorage.setItem('accessToken', res.accessToken) //TODO: res.accessToken type any 없애기
             router.push('/');
           })
         }catch(error) {
-            console.error('Login Error:', error);
+            console.error('Login Error:', error); //TODO:error 발생시 동작 조금 더 생각하기
         }
     };
 
