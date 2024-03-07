@@ -32,7 +32,7 @@ function LoginPage() {
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // 폼 제출 기본 동작 방지
     
-        try {
+        try { //[ ] http요청하는부분 따로 빼기, 코드 가독성 높이기
           const res = await axios('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', { 
             method: 'POST',
             headers: { //http 요청의 헤더 설정
@@ -47,6 +47,7 @@ function LoginPage() {
           const loginResponse : LoginResponseDto = res.data;
           console.log(loginResponse);
           localStorage.setItem('accessToken', loginResponse.accessToken)
+          localStorage.setItem('id', loginResponse.user.id)
           router.push('/');
       
         }catch(error) {
