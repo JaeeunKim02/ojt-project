@@ -34,7 +34,7 @@ export default function Home() {
     };
     checkAuthentication();
 
-  }); // 빈 배열일 경우 컴포넌트가 처음 렌더링될 때에만(마운트될 때에만) 함수가 호출됨
+  },[]); // 빈 배열일 경우 컴포넌트가 처음 렌더링될 때에만(마운트될 때에만) 함수가 호출됨
 
   return(
     <div style={styles}>

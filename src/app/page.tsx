@@ -1,5 +1,5 @@
 'use client'; //[ ] use server 와 use client인 컴포넌트 구분해주기
-import Link from 'next/link';//TODO prettier
+import Link from 'next/link';//[ ] prettier
 import {useRouter} from 'next/navigation';
 import {Button} from '@mui/material';
 import React,{useState, useEffect} from 'react';
@@ -15,14 +15,14 @@ const styles = {
 
 export default function Home() {
   const router=useRouter();
-  // TODO: api를 불러와서 athorization 통과해야 마이페이지 보여주기 /islogin 조작가능하므로...
+  // [x]: api를 불러와서 athorization 통과해야 마이페이지 보여주기 /islogin 조작가능하므로...
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
     router.push('/');
   };
   const [isLogin, setIsLogin]=useState<boolean>();
-  useEffect(() => { //[ ] 마운트 될때만 하는거면 useEffect 쓸필요 있나?
+  useEffect(() => { //[x] 마운트 될때만 하는거면 useEffect 쓸필요 있나?->리렌더링하는게 너무 많다고 뜸..useEffect 하면 안뜸
     // 로컬 스토리지에서 accessToken 존재 여부 확인
     const checkAuthentication = async() =>{
       const accessToken = localStorage.getItem('accessToken');
@@ -44,7 +44,7 @@ export default function Home() {
   },[]); // 빈 배열일 경우 컴포넌트가 처음 렌더링될 때에만(마운트될 때에만) 함수가 호출됨
 
 
-// [ ] 여기서는 마이페이지로 이동하도록. 마이페이지 가서 인증확인하기
+// [x] 여기서는 마이페이지로 이동하도록. 마이페이지 가서 인증확인하기
   return (
     <div style={styles}>
       <Link href="/">Home</Link>
