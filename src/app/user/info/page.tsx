@@ -1,6 +1,4 @@
 'use client';
-import LeftNavigation from '../../../components/left/LeftNavigation';
-import RightComponent from '../../../components/right/RightComponent';
 import Authentication from '../../../components/Authentication';
 
 const styles: React.CSSProperties = {
@@ -11,17 +9,7 @@ const styles: React.CSSProperties = {
   backgroundColor: 'rgb(255,255,255)',
 };
 //[x] api athorization
-export default function Mypage() {
-  //[ ] 커스텀 훅
-  Authentication('/auth/login');
-  return(
-    <div style={styles}>
-      <LeftNavigation />
-      <RightComponent />
-    </div>
-  );
+
+export default async function Userinfopage() {
+  Authentication('/mypage','/auth/login')
 }
-
-// export async function getServerSideProps() {
-
-// }
