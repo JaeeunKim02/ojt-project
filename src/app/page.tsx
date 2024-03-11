@@ -2,6 +2,7 @@
 import Link from 'next/link';//[ ] prettier
 import {Button} from '@mui/material';
 import Loginbutton from '../components/Loginbutton';
+import {cookies} from 'next/headers';
 
 const styles = {
   height:'75px',
@@ -12,13 +13,13 @@ const styles = {
 };
 
 export default function Home() {
-
+  
   return (
     <div style={styles}>
       <Link href="/">Home</Link>
       <Loginbutton />
       <Link href="/user/register">Sign up</Link>
-      <Button href="/user/info">My Page</Button>
+      <Button href="/mypage">My Page</Button>
     </div>
   );
 }
