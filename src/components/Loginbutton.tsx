@@ -1,12 +1,12 @@
-
+'use server';
 // import {useState, useEffect} from 'react';
 // import {useRouter} from 'next/navigation';
 import {Button} from '@mui/material';
-import {cookies} from 'next/headers';
 import {redirect} from 'next/navigation'
+import {cookies} from 'next/headers'
 
 
-const Loginbutton=()=>{
+const Loginbutton:React.FC<{ isLogin : boolean }>= async ({ isLogin })=>{
     // const [isLogin, setIsLogin] = useState<boolean>();
     // const router=useRouter();
     // useEffect(()=>{
@@ -15,7 +15,6 @@ const Loginbutton=()=>{
     // },[])
     
     // [x]: api를 불러와서 athorization 통과해야 마이페이지 보여주기 /islogin 조작가능하므로...
-    const isLogin=cookies().get('accessToken');
     const handleLogout = async () => {
       'use server'
       cookies().delete('accessToken');
@@ -26,10 +25,9 @@ const Loginbutton=()=>{
       'use server'
       redirect('/auth/login');
     };
-    return(
-      <form action={handleLogout} >
-        <>{!!isLogin ? (<Button type="submit" action={handleLogout}>LOG OUT</Button>) : (<Button type="submit" action={redirection}>LOG IN</Button>) }</>
-      </form>
+    return(//RSC 에서 RCC로 function과 같이 직렬화 불가능한 객체를 prop으로 넘겨줄 수 없다.
+    //서버 action을 사용하면 RSC에서 RCC로 function(use server)을 prop으로 넘겨주기 가능
+        <>{!!isLogin ? (<Button action={handleLogout}>LOG OUT</Button>) : (<Button>LOG IN</Button>) }</>
         
     );
 }

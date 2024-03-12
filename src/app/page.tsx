@@ -13,11 +13,11 @@ const styles = {
 };
 
 export default function Home() {
-  
+  const isLogin=cookies().get('accessToken');
   return (
     <div style={styles}>
       <Link href="/">Home</Link>
-      <Loginbutton />
+      {/* <Loginbutton isLogin={!!isLogin}/> */}
       <Link href="/user/register">Sign up</Link>
       <Button href="/mypage">My Page</Button>
     </div>
