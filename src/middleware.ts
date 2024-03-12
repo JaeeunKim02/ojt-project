@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import axios from 'axios';
- 
 
 export async function middleware(request: NextRequest) {
   // 리다이렉트 조건
   if (request.url.includes("/mypage")){
-    const accessToken = request.cookies.get('accessToken'); // 객체 타입임
-    const userId = request.cookies.get('userId'); //객체 타입이므로 userId.value 해야 값 얻을수 있다.
+    const accessToken = request.cookies.get('accessToken')?.value; 
+    const userId = request.cookies.get('userId')?.value; 
     console.log(accessToken);
     console.log(userId);
     if(!accessToken) {
@@ -26,10 +25,10 @@ export async function middleware(request: NextRequest) {
     //     console.error('Authentication error',error);
     //     return NextResponse.redirect(new URL("/auth/login", request.url));
     // }
-    const res =await fetch(`https://levelzero-backend.platform-dev.bagelgames.com/user/info/${userId.value}`, {
+    const res =await fetch(`https://levelzero-backend.platform-dev.bagelgames.com/user/info/${userId}`, {
       method: 'GET',
       headers:{
-          Authorization: `Bearer ${accessToken.value}`,
+          Authorization: `Bearer ${accessToken}`,
       },
       
     });
@@ -40,7 +39,7 @@ export async function middleware(request: NextRequest) {
     else {
       console.log(3);
       console.error('Authentication error');
-      console.log(accessToken.value);
+      console.log(accessToken);
       return NextResponse.redirect(new URL('/auth/login', request.url))
     }
   } 
