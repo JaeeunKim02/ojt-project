@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div style={styles}>
       <Link href="/">Home</Link>
-      {/* <Loginbutton isLogin={!!isLogin}/> */}
+      <Loginbutton />
       <Link href="/user/register">Sign up</Link>
       <Button href="/mypage">My Page</Button>
     </div>
