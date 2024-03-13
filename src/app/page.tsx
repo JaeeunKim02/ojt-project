@@ -13,7 +13,6 @@ const styles = {
 };
 
 export default function Home() {
-  const isLogin=cookies().get('accessToken');
   return (
     <div style={styles}>
       <Link href="/">Home</Link>
