@@ -16,6 +16,7 @@ const header={
   left: '0px',
   top: '0px',
   backgroundColor: 'rgb(230,230,230)',
+  alignItems:'center',
   gap:'30px', // 아이템들 사이 간격
   color: 'rgb(0,0,0)',
   padding:'20px'

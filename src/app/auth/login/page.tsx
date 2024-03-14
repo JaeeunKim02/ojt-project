@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button, TextField} from '@mui/material';
 // import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
-import axios from 'axios'; // fetch 보다 axios 사용을 주로 선호
 import {cookies} from 'next/headers';
 import {redirect} from 'next/navigation';
+//fetch or axios
 
 const styles : React.CSSProperties = {
     height:'100vh',
@@ -17,14 +17,6 @@ const styles : React.CSSProperties = {
     backgroundColor: 'rgb(255,255,255)',
 }
 
-interface LoginResponseDto{ // swagger 에 있는 response schema
-  user:{
-    id:string,
-    name: string,
-  },
-  accessToken: string,
-}
-
 function LoginPage() {
 
     const handleLogin = async (e: FormData) => {
@@ -33,26 +25,32 @@ function LoginPage() {
         // e.preventDefault(); // 폼 제출 기본 동작 방지
 
         // try { //[ ] http요청하는부분 따로 빼기, 코드 가독성 높이기
-          const res = await axios('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', { 
+          const res = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', { 
             method: 'POST',
             headers: { //http 요청의 헤더 설정
               'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄. 사실 axios 는 기본 설정되어 있음. 생략 가능.
               'accept' : 'application/json' ,
             },
-            data: { 
+            body: JSON.stringify({ 
               "id": e.get('id'),
               "password": e.get('password'),
-            }, //입력된 아이디, 비번을 json형태로 변환해서 요청
+            }), //입력된 아이디, 비번을 json형태로 변환해서 요청
           })
-          if(!res) console.log('error: login failed')
-          else{
-            const loginResponse : LoginResponseDto = res.data;
-            console.log(loginResponse);
-            cookies().set('accessToken', loginResponse.accessToken)
-            cookies().set('userId', loginResponse.user.id)
+          .then(res=>{
+            if(!res.ok){
+              console.log('error: login failed')
+              redirect('/errorpage')
+            }
+            else{
+              return res.json()
+            }
+          })
+          .then(res=>{
+            cookies().set('accessToken', res.accessToken)
+            cookies().set('userId', res.user.id)
             cookies().set('isLoggedIn', 'true')
             redirect('/') //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
-          }
+          })
     };
 
     return(

@@ -1,7 +1,8 @@
-'use client';
+// 'use client';
 import React, {useState} from 'react';
 import {Button, TextField} from '@mui/material';
 import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
+import {redirect} from 'next/navigation'
 
 const styles : React.CSSProperties = {
     height:'100vh',
@@ -16,15 +17,14 @@ const styles : React.CSSProperties = {
 }
 
 function SignupPage() {
-    const [id,setId]=useState('');
-    const [password, setPassword]=useState('');
-    const [name, setName]=useState('');
-    const router=useRouter();
+    // const [id,setId]=useState('');
+    // const [password, setPassword]=useState('');
+    // const [name, setName]=useState('');
+    // const router=useRouter();
 
-    const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // 폼 제출 기본 동작 방지
-    
-        try {
+    const handleSignup = async (e: FormData) => {
+        // e.preventDefault(); // 폼 제출 기본 동작 방지
+        'use server'
           const response = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/user/register', {
             method: 'POST',
             headers: { //http 요청의 헤더 설정
@@ -32,34 +32,32 @@ function SignupPage() {
               'accept': 'application/json',
             },
             body: JSON.stringify({ 
-              "id": id, 
-              "password": password,
-              "name": name
+              "id": e.get('id'), 
+              "password": e.get('password'),
+              "name": e.get('name'),
             }), //입력된 아이디, 비번을 json형태로 변환해서 요청
           })
           .then(res=>{
             console.log(res);
             if(!res.ok){
-              throw new Error('Signup Failed');
+              console.error('error: signup failed');
+              redirect('/errorpage')
             }
             return res.json()
           })
           .then(res=>{
             console.log(res)
-            router.push('/');
+            redirect('/');
           })
-        }catch(error) {
-            console.error('Signup Error:', error);
-        }
     };
 
     return(
     <div style={styles}>
         <h2>Sign up</h2>
-        <form onSubmit={handleSignup} style={{display:'flex', alignItems:'center', flexDirection:'column', gap:'10px'}}>
-            <TextField id="name" label="name" variant="outlined" value={name} onChange={(e)=>setName(e.target.value)}/>
-            <TextField id="id" label="id" variant="outlined" value={id} onChange={(e)=>setId(e.target.value)}/>
-            <TextField id="password" label="password" variant="filled" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+        <form action={handleSignup} style={{display:'flex', alignItems:'center', flexDirection:'column', gap:'10px'}}>
+            <TextField id="name" label="name" variant="outlined" name='name'/>
+            <TextField id="id" label="id" variant="outlined" name='id'/>
+            <TextField id="password" label="password" variant="filled" name='password'/>
             <Button type="submit" variant="contained" style={{ backgroundColor: '#1976d2', color: '#fff' }}>SIGN UP</Button>
         </form>
     </div>
