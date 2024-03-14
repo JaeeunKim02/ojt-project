@@ -56,6 +56,7 @@ function LoginPage() {
             console.log(loginResponse);
             cookies().set('accessToken', loginResponse.accessToken)
             cookies().set('userId', loginResponse.user.id)
+            cookies().set('isLoggedIn', 'true')
             redirect('/') //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
           }
     };

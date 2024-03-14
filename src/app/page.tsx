@@ -13,10 +13,11 @@ const styles = {
 };
 
 export default function Home() {
+  const isLoggedIn = cookies().get('isLoggedIn')?.value ==='true' //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
   return (
     <div style={styles}>
       <Link href="/">Home</Link>
-      <Loginbutton />
+      <Loginbutton isLoggedIn={isLoggedIn}/>
       <Link href="/user/register">Sign up</Link>
       <Button href="/mypage">My Page</Button>
     </div>
