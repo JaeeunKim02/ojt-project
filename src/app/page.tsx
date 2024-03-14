@@ -5,21 +5,32 @@ import Loginbutton from '../components/Loginbutton';
 import {cookies} from 'next/headers';
 
 const styles = {
-  height:'75px',
+  height:'100vh',
   display: 'flex',
-  gap:'10px', // 아이템들 사이 간격
   backgroundColor: 'rgb(255,255,255)',
-  padding:'10px',
 };
+const header={
+  height:'8%',
+  width: '100%',
+  display:'flex',
+  left: '0px',
+  top: '0px',
+  backgroundColor: 'rgb(230,230,230)',
+  gap:'30px', // 아이템들 사이 간격
+  color: 'rgb(0,0,0)',
+  padding:'20px'
+}
 
 export default function Home() {
   const isLoggedIn = cookies().get('isLoggedIn')?.value ==='true' //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
   return (
     <div style={styles}>
-      <Link href="/">Home</Link>
-      <Loginbutton isLoggedIn={isLoggedIn}/>
-      <Link href="/user/register">Sign up</Link>
-      <Button href="/mypage">My Page</Button>
+      <div style={header}>
+        <Button href="/" style={{marginLeft:'20px'}}>Home</Button>
+        <Loginbutton isLoggedIn={isLoggedIn}/>
+        <Link href="/user/register">Sign up</Link>
+        <Button href="/mypage">My Page</Button>
+      </div>
     </div>
   );
 }
