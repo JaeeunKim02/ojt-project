@@ -1,10 +1,7 @@
-
-// import { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
-// import LoadingPage from './LoadingPage';
-import {redirect} from 'next/navigation'
 import { logoutHandle } from '../app/action';
 
+// 원래 기존에는 서버 action에 api 같은 거 넣어서 백엔드에서 해결하도록 했는데, 
+// 지금 바뀐 nextjs는 action에 'use server' 인 함수 넣어서 프론트에서 해결할 수 있도록 함.
 const Loginbutton:React.FC<{isLoggedIn: boolean}> = ({isLoggedIn}) => {
   return (
     <>
@@ -20,24 +17,3 @@ const Loginbutton:React.FC<{isLoggedIn: boolean}> = ({isLoggedIn}) => {
 };
 
 export default Loginbutton;
-
-// 로그아웃 처리
-  // const handleLogout = async () => {
-  //   'use server'
-  //   await fetch('/api/logouthandler')
-  //     .then(() => {
-  //       // setIsLoggedIn(false);
-  //       // 로그아웃 후 홈으로 리다이렉트
-  //       // router.push('/');
-  //       redirect('/')
-  //     });
-  // };
-
-  // 로그인 페이지로 이동
-  // const handleLogin = async () => {
-  //   'use server'
-  //   // router.push('auth/login')
-  //   redirect('/auth/login');
-  // };
-
-  // if(isLoading) return <><LoadingPage/></>; // 로딩 중...

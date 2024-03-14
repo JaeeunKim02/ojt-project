@@ -1,12 +1,9 @@
-// 'use client'; 
-
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, TextField} from '@mui/material';
 // import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
-import axios, {AxiosError} from 'axios'; // fetch 보다 axios 사용을 주로 선호
+import axios from 'axios'; // fetch 보다 axios 사용을 주로 선호
 import {cookies} from 'next/headers';
 import {redirect} from 'next/navigation';
-import router from 'next/router'
 
 const styles : React.CSSProperties = {
     height:'100vh',
@@ -29,9 +26,6 @@ interface LoginResponseDto{ // swagger 에 있는 response schema
 }
 
 function LoginPage() {
-    // const [id,setId]=useState<string>('');
-    // // const [password, setPassword]=useState<string>('');
-    // const router=useRouter();
 
     const handleLogin = async (e: FormData) => {
        'use server'
