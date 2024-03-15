@@ -17,8 +17,10 @@ const styles: React.CSSProperties = {
 function SignupPage() {
   const handleSignup = async (e: FormData) => {
     // e.preventDefault(); // 폼 제출 기본 동작 방지
-    'use server';
+    'use server'; //[ ] fetch 반복되는 부분->보일러 플레이트 코드->DRY
     const res = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/user/register', {
+      //[ ] api 호출 오류 어떻게 확인? -> 주말에 공부하기...
+      //[ ] 환경변수
       method: 'POST',
       headers: {
         //http 요청의 헤더 설정
@@ -33,7 +35,7 @@ function SignupPage() {
     });
     if (!res.ok) {
       console.log('error: signup failed');
-      redirect('/errorpage');
+      redirect('/errorpage'); // [ ] error.ts, 팝업, 모달, 토스트...안티디자인?
     } else {
       redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
     }
