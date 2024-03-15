@@ -1,4 +1,3 @@
-'use client';
 import LeftNavigation from '../../components/left/LeftNavigation';
 import RightComponent from '../../components/right/RightComponent';
 import React from 'react';

@@ -1,3 +1,4 @@
+//[ ] 팝업으로 어떤 에러인지 알려주는게 나을듯
 import React from 'react';
 
 const styles: React.CSSProperties = {

@@ -1,4 +1,4 @@
-//[ ] use server 와 use client인 컴포넌트 구분해주기
+//[ ] isLoggedIn 굳이? accessToken으로 하는게 낫지 않나
 import Link from 'next/link'; //[ ] prettier
 import { Button } from '@mui/material';
 import Loginbutton from '../components/Loginbutton';
