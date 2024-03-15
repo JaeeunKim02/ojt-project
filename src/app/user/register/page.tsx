@@ -1,7 +1,5 @@
-// 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, TextField } from '@mui/material';
-import { useRouter } from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
 import { redirect } from 'next/navigation';
 
 const styles: React.CSSProperties = {
@@ -17,15 +15,10 @@ const styles: React.CSSProperties = {
 };
 
 function SignupPage() {
-  // const [id,setId]=useState('');
-  // const [password, setPassword]=useState('');
-  // const [name, setName]=useState('');
-  // const router=useRouter();
-
   const handleSignup = async (e: FormData) => {
     // e.preventDefault(); // 폼 제출 기본 동작 방지
     'use server';
-    const response = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/user/register', {
+    const res = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/user/register', {
       method: 'POST',
       headers: {
         //http 요청의 헤더 설정
@@ -37,19 +30,13 @@ function SignupPage() {
         'password': e.get('password'),
         'name': e.get('name'),
       }), //입력된 아이디, 비번을 json형태로 변환해서 요청
-    })
-      .then((res) => {
-        console.log(res);
-        if (!res.ok) {
-          console.error('error: signup failed');
-          redirect('/errorpage');
-        }
-        return res.json();
-      })
-      .then((res) => {
-        console.log(res);
-        redirect('/');
-      });
+    });
+    if (!res.ok) {
+      console.log('error: signup failed');
+      redirect('/errorpage');
+    } else {
+      redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
+    }
   };
 
   return (

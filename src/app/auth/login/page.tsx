@@ -18,6 +18,16 @@ const styles: React.CSSProperties = {
   backgroundColor: 'rgb(255,255,255)',
 };
 
+interface UserDto {
+  id: string;
+  name: string;
+}
+
+interface LoginResponseDto {
+  accessToken: string;
+  user: UserDto;
+}
+
 function LoginPage() {
   const handleLogin = async (e: FormData) => {
     'use server';
@@ -36,21 +46,18 @@ function LoginPage() {
         'id': e.get('id'),
         'password': e.get('password'),
       }), //입력된 아이디, 비번을 json형태로 변환해서 요청
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.log('error: login failed');
-          redirect('/errorpage');
-        } else {
-          return res.json();
-        }
-      })
-      .then((res) => {
-        cookies().set('accessToken', res.accessToken);
-        cookies().set('userId', res.user.id);
-        cookies().set('isLoggedIn', 'true');
-        redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
-      });
+    });
+
+    if (!res.ok) {
+      console.log('error: login failed');
+      redirect('/errorpage');
+    } else {
+      const dto: LoginResponseDto = await Promise.resolve(res.json());
+      cookies().set('accessToken', dto.accessToken);
+      cookies().set('userId', dto.user.id);
+      cookies().set('isLoggedIn', 'true');
+      redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
+    }
   };
 
   return (
