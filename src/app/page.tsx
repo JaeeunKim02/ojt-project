@@ -1,4 +1,4 @@
-//[ ] isLoggedIn 굳이? accessToken으로 하는게 낫지 않나
+//[x] isLoggedIn 굳이? accessToken으로 하는게 낫지 않나
 import Link from 'next/link'; //[ ] prettier
 import { Button } from '@mui/material';
 import Loginbutton from '../components/Loginbutton';
@@ -23,7 +23,7 @@ const header = {
 };
 
 export default function Home() {
-  const isLoggedIn = cookies().get('isLoggedIn')?.value === 'true'; //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
+  const isLoggedIn: boolean = !!cookies().get('accessToken')?.value; //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
   return (
     <div style={styles}>
       <div style={header}>

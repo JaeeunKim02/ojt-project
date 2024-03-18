@@ -18,9 +18,9 @@ function SignupPage() {
   const handleSignup = async (e: FormData) => {
     // e.preventDefault(); // 폼 제출 기본 동작 방지
     'use server'; //[ ] fetch 반복되는 부분->보일러 플레이트 코드->DRY
-    const res = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/user/register', {
-      //[ ] api 호출 오류 어떻게 확인? -> 주말에 공부하기...
-      //[ ] 환경변수
+    const res = await fetch(`${process.env.API_URL}/user/register`, {
+      //[x] api 호출 오류 어떻게 확인? -> try catch 구문이나 Promise의 .catch() 를 사용하여 에러 캐치
+      //[x] 환경변수
       method: 'POST',
       headers: {
         //http 요청의 헤더 설정

@@ -35,7 +35,7 @@ function LoginPage() {
     // e.preventDefault(); // 폼 제출 기본 동작 방지
 
     // try { //[ ] http요청하는부분 따로 빼기, 코드 가독성 높이기
-    const res = await fetch('https://levelzero-backend.platform-dev.bagelgames.com/auth/login', {
+    const res = await fetch(`${process.env.API_URL}/auth/login`, {
       method: 'POST',
       headers: {
         //http 요청의 헤더 설정
@@ -55,7 +55,6 @@ function LoginPage() {
       const dto: LoginResponseDto = await Promise.resolve(res.json());
       cookies().set('accessToken', dto.accessToken);
       cookies().set('userId', dto.user.id);
-      cookies().set('isLoggedIn', 'true');
       redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
     }
   };
