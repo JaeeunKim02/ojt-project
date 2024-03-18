@@ -1,7 +1,7 @@
 'use client';
 import { styles } from './RightComponent';
 import React from 'react';
-import i18n from '../../i18n';
+import i18n from '../../../i18n';
 import { useTranslation } from 'react-i18next';
 
 const content: React.CSSProperties = {
