@@ -31,7 +31,7 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
       name: formData.get('name'),
     });
     if (!res.ok) {
-      if (res.status == 409) throw new Error('User id already exists!');
+      if (res.status === 409) throw new Error('User id already exists!');
       throw new Error('Signup failed');
     }
   } catch (error) {
