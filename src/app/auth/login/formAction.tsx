@@ -2,6 +2,7 @@
 import React from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import fetchAPI from '../../api';
 
 const styles: React.CSSProperties = {
   height: '100vh',
@@ -29,19 +30,10 @@ type FormState = {
 };
 async function onFormPostAction(prevState: FormState, formData: FormData) {
   try {
-    const res = await fetch(`${process.env.API_URL}/auth/login`, {
-      method: 'POST',
-      headers: {
-        //http 요청의 헤더 설정
-        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄. 사실 axios 는 기본 설정되어 있음. 생략 가능.
-        'accept': 'application/json',
-      },
-      body: JSON.stringify({
-        'id': formData.get('id'),
-        'password': formData.get('password'),
-      }), //입력된 아이디, 비번을 json형태로 변환해서 요청
+    const res = await fetchAPI('/auth/login', 'POST', {
+      'id': formData.get('id'),
+      'password': formData.get('password'),
     });
-
     if (!res.ok) {
       throw new Error('Login failed');
     } else {
@@ -51,7 +43,7 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
     }
   } catch (error) {
     console.error('Login error:', error);
-    return { message: `${error}` || 'An error occurred during signup.' };
+    return { message: `${error}` || 'An error occurred during login.' };
   }
   redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
 }

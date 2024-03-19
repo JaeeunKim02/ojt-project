@@ -3,6 +3,7 @@
 'use server';
 import React from 'react';
 import { redirect } from 'next/navigation';
+import fetchAPI from '../../api';
 const styles: React.CSSProperties = {
   height: '100vh',
   display: 'flex',
@@ -24,18 +25,10 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
     return { message: 'User password must be longer than 8 letters!' };
   }
   try {
-    const res = await fetch(`${process.env.API_URL}/user/register`, {
-      method: 'POST',
-      headers: {
-        //http 요청의 헤더 설정
-        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
-        'accept': 'application/json',
-      },
-      body: JSON.stringify({
-        'id': formData.get('id'),
-        'password': formData.get('password'),
-        'name': formData.get('name'),
-      }), //입력된 아이디, 비번을 json형태로 변환해서 요청
+    const res = await fetchAPI('/user/register', 'POST', {
+      'id': formData.get('id'),
+      'password': formData.get('password'),
+      'name': formData.get('name'),
     });
     if (!res.ok) {
       if (res.status == 409) throw new Error('User id already exists!');
