@@ -21,11 +21,29 @@ function SignupPage() {
   return (
     <div style={styles}>
       <h2>Sign up</h2>
-      <form action={action} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '10px' }}>
+      <form
+        action={action}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'column',
+          gap: '10px',
+        }}
+      >
         <TextField id="name" label="name" variant="outlined" name="name" />
         <TextField id="id" label="id" variant="outlined" name="id" />
-        <TextField type="password" id="password" label="password" variant="filled" name="password" />
-        <Button type="submit" variant="contained" style={{ backgroundColor: '#1976d2', color: '#fff' }}>
+        <TextField
+          type="password"
+          id="password"
+          label="password"
+          variant="filled"
+          name="password"
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          style={{ backgroundColor: '#1976d2', color: '#fff' }}
+        >
           SIGN UP
         </Button>
         <p style={{ color: 'red' }}>{state.message}</p>

@@ -31,8 +31,8 @@ type FormState = {
 async function onFormPostAction(prevState: FormState, formData: FormData) {
   try {
     const res = await fetchAPI('/auth/login', 'POST', {
-      'id': formData.get('id'),
-      'password': formData.get('password'),
+      id: formData.get('id'),
+      password: formData.get('password'),
     });
     if (!res.ok) {
       throw new Error('Login failed');

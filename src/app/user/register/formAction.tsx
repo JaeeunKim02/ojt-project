@@ -26,9 +26,9 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
   }
   try {
     const res = await fetchAPI('/user/register', 'POST', {
-      'id': formData.get('id'),
-      'password': formData.get('password'),
-      'name': formData.get('name'),
+      id: formData.get('id'),
+      password: formData.get('password'),
+      name: formData.get('name'),
     });
     if (!res.ok) {
       if (res.status == 409) throw new Error('User id already exists!');
