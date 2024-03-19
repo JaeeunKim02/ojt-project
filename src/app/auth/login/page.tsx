@@ -1,10 +1,8 @@
-//[x] password *로 보이게 하기
+'use client';
 import React from 'react';
 import { Button, TextField } from '@mui/material';
-// import {useRouter} from 'next/navigation'; //클라이언트 컴포넌트에서 사용하는 useRouter. 서버 컴포넌트에서 사용하는 useRouter는 next/router 에서 import 해야함.
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-//fetch or axios
+import { useFormState } from 'react-dom';
+import onFormPostAction from './formAction';
 
 const styles: React.CSSProperties = {
   height: '100vh',
@@ -18,60 +16,18 @@ const styles: React.CSSProperties = {
   backgroundColor: 'rgb(255,255,255)',
 };
 
-interface UserDto {
-  id: string;
-  name: string;
-}
-
-interface LoginResponseDto {
-  accessToken: string;
-  user: UserDto;
-}
-
 function LoginPage() {
-  const handleLogin = async (e: FormData) => {
-    'use server';
-    console.log(e.get('id'));
-    // e.preventDefault(); // 폼 제출 기본 동작 방지
-
-    // try { //[x] http요청하는부분 따로 빼기, 코드 가독성 높이기
-    try {
-      const res = await fetch(`${process.env.API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          //http 요청의 헤더 설정
-          'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄. 사실 axios 는 기본 설정되어 있음. 생략 가능.
-          'accept': 'application/json',
-        },
-        body: JSON.stringify({
-          'id': e.get('id'),
-          'password': e.get('password'),
-        }), //입력된 아이디, 비번을 json형태로 변환해서 요청
-      });
-
-      if (!res.ok) {
-        throw new Error('Login failed');
-      } else {
-        const dto: LoginResponseDto = await Promise.resolve(res.json());
-        cookies().set('accessToken', dto.accessToken);
-        cookies().set('userId', dto.user.id);
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      throw new Error(`${error}`); // 이렇게 해야 error.tsx 가 실행됨
-    }
-    redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
-  };
-
+  const [state, action] = useFormState(onFormPostAction, { message: '' });
   return (
     <div style={styles}>
       <h2>Log in</h2>
-      <form action={handleLogin} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '10px' }}>
+      <form action={action} style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', gap: '10px' }}>
         <TextField id="id" label="id" variant="outlined" name="id" />
         <TextField type="password" id="password" label="password" variant="filled" name="password" />
         <Button type="submit" variant="contained" style={{ backgroundColor: '#1976d2', color: '#fff' }}>
           LOG IN
         </Button>
+        <p style={{ color: 'red' }}>{state.message}</p>
       </form>
     </div>
   );

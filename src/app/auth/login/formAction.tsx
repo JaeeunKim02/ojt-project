@@ -1,8 +1,8 @@
-//[x] api 호출 오류 어떻게 확인? -> try catch 구문이나 Promise의 .catch() 를 사용하여 에러 캐치
-//[x] 환경변수
 'use server';
 import React from 'react';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+
 const styles: React.CSSProperties = {
   height: '100vh',
   display: 'flex',
@@ -14,37 +14,44 @@ const styles: React.CSSProperties = {
   gap: '10px', // 아이템들 사이 간격
   backgroundColor: 'rgb(255,255,255)',
 };
+
+interface UserDto {
+  id: string;
+  name: string;
+}
+
+interface LoginResponseDto {
+  accessToken: string;
+  user: UserDto;
+}
 type FormState = {
   message: string;
 };
 async function onFormPostAction(prevState: FormState, formData: FormData) {
-  const password = (formData.get('password') ?? '') as string; // User password must be longer than 8 letters
-
-  if (password.length < 8) {
-    return { message: 'User password must be longer than 8 letters!' };
-  }
   try {
-    const res = await fetch(`${process.env.API_URL}/user/register`, {
+    const res = await fetch(`${process.env.API_URL}/auth/login`, {
       method: 'POST',
       headers: {
         //http 요청의 헤더 설정
-        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
+        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄. 사실 axios 는 기본 설정되어 있음. 생략 가능.
         'accept': 'application/json',
       },
       body: JSON.stringify({
         'id': formData.get('id'),
         'password': formData.get('password'),
-        'name': formData.get('name'),
       }), //입력된 아이디, 비번을 json형태로 변환해서 요청
     });
+
     if (!res.ok) {
-      if (res.status == 409) throw new Error('User id already exists!');
-      throw new Error('Signup failed');
+      throw new Error('Login failed');
+    } else {
+      const dto: LoginResponseDto = await Promise.resolve(res.json());
+      cookies().set('accessToken', dto.accessToken);
+      cookies().set('userId', dto.user.id);
     }
   } catch (error) {
-    console.error('Signup Error:', error);
+    console.error('Login error:', error);
     return { message: `${error}` || 'An error occurred during signup.' };
-    // [x] error.ts, 팝업, 모달, 토스트...안티디자인?
   }
   redirect('/'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
 }
