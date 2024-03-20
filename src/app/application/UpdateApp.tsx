@@ -1,4 +1,5 @@
-export default function OneApplication() {
+'use server';
+export default async function GotoApp() {
   return (
     <div>
       <h1>oneApplication</h1>

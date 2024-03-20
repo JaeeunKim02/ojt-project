@@ -1,3 +1,4 @@
+'use server';
 import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -5,56 +6,84 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Paper from '@mui/material/Paper'; //포스트잇처럼 화면에서 도드라짐-elevation:튀어나옴, outlined:윤곽선
+import { Button } from '@mui/material';
+import GotoApp from './GotoApp';
+import UpdateApp from './UpdateApp';
+import CreateApp from './CreateApp';
+import { redirect } from 'next/navigation';
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
+const styles: React.CSSProperties = {
+  height: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: 'rgb(255,255,255)',
+  padding: '50px',
+  gap: '20px',
+};
+
+function createData(number: number, appName: string, appIdentifier: string) {
+  return { number, appName, appIdentifier };
 }
 
 const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
+  createData(1, 'GaiaApplication', 'GaiaAdministrator'),
+  createData(2, 'SCS-RealMatch', 'RealMatch'),
+  createData(3, 'expRandomDragons', 'RandomDragons'),
+  createData(4, 'balvenie', 'balvenie'),
+  createData(5, 'Roll & Slay', 'NctRollAndSlay'),
 ];
 
-export default function BasicTable() {
+export default async function BasicTable() {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+    <div style={styles}>
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>
+        Gaia Applications
+      </h1>
+      <form action={CreateApp}>
+        <Button style={{ width: '10%' }}>+ Add application</Button>
+      </form>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>#</TableCell>
+              <TableCell>appName</TableCell>
+              <TableCell>appIdentifier</TableCell>
+              <TableCell>appSecret</TableCell>
+              <TableCell>Goto</TableCell>
+              <TableCell>Update</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <TableRow
+                key={row.number}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.number}
+                </TableCell>
+                <TableCell>{row.appName}</TableCell>
+                <TableCell>{row.appIdentifier}</TableCell>
+                <TableCell>********</TableCell>
+                <TableCell>
+                  <form action={GotoApp}>
+                    <Button type="submit" value={`${row.number}`} name="id">
+                      Goto
+                    </Button>
+                  </form>
+                </TableCell>
+                <TableCell>
+                  <form action={UpdateApp}>
+                    <Button type="submit">Update</Button>
+                  </form>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 }

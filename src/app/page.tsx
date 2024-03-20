@@ -1,7 +1,7 @@
 //[x] isLoggedIn 굳이? accessToken으로 하는게 낫지 않나
 import Link from 'next/link'; //[ ] prettier
 import { Button } from '@mui/material';
-import Loginbutton from '../components/Loginbutton';
+import Loginbutton from './components/Loginbutton';
 import { cookies } from 'next/headers';
 
 const styles = {
@@ -33,6 +33,7 @@ export default function Home() {
         <Loginbutton isLoggedIn={isLoggedIn} />
         <Link href="/user/register">Sign up</Link>
         <Button href="/mypage">My Page</Button>
+        <Button href="/application">App</Button>
       </div>
     </div>
   );
