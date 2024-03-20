@@ -25,6 +25,8 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
     return { message: 'User password must be longer than 8 letters!' };
   }
   try {
+    //[ ] fetchAPI 쓴게 공통화가 좀 덜 된 느낌 -> signupAPI, loginAPI로 나누기
+    //[ ] public/image/picture.png -> 로그아웃 상태에서도 접근 가능하므로 접근못하게 하기
     const res = await fetchAPI('/user/register', 'POST', {
       id: formData.get('id'),
       password: formData.get('password'),
