@@ -37,7 +37,7 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
     if (!res.ok) {
       throw new Error('Login failed');
     } else {
-      const dto: LoginResponseDto = await Promise.resolve(res.json());
+      const dto: LoginResponseDto = await res.json(); // 안될 때 awiat Promise.resolve(res.json());
       cookies().set('accessToken', dto.accessToken);
       cookies().set('userId', dto.user.id);
     }
