@@ -1,6 +1,5 @@
 'use server';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 export default async function GotoApp({ params }: { params: { id: string } }) {
   const accessToken = cookies().get('accessToken')?.value;
   try {
