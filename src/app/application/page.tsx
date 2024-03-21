@@ -29,10 +29,16 @@ export default async function BasicTable() {
   'use server';
   try {
     const accessToken = cookies().get('accessToken')?.value;
-    const res = await fetch(`${process.env.API_URL}/application/list`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
+    const res = await fetch(
+      `${process.env.API_URL}/application/list?page=1&size=10`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          accept: 'application/json',
+        },
+      },
+    );
     if (!res.ok) {
       console.log(res);
       if (res.status === 401) throw new Error('Unauthorized');
@@ -53,6 +59,8 @@ export default async function BasicTable() {
                   <TableCell>#</TableCell>
                   <TableCell>App Name</TableCell>
                   <TableCell>App Description</TableCell>
+                  <TableCell>Go to App</TableCell>
+                  <TableCell>Update App</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
