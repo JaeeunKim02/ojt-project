@@ -30,16 +30,26 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
               gap: '10px',
             }}
           >
-            <TextField disabled id="id" label="id" defaultValue={dto.id} />
+            <TextField
+              InputProps={{
+                readOnly: true,
+              }}
+              id="id"
+              name="id"
+              label="id"
+              defaultValue={dto.id}
+            />
             <TextField
               required
               id="name"
+              name="name"
               label="name"
               defaultValue={dto.name}
             />
             <TextField
               required
               id="description"
+              name="description"
               label="description"
               defaultValue={dto.description}
             />

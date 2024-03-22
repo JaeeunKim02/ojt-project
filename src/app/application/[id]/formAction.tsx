@@ -18,6 +18,7 @@ async function PostAction(formData: FormData) {
       `Bearer ${accessToken}`,
     );
     if (!res.ok) {
+      console.log(res);
       if (res.status === 401) throw new Error('Unauthorized');
       throw new Error('Invalid request');
     }
@@ -27,7 +28,8 @@ async function PostAction(formData: FormData) {
     //   message: `${error}` || 'An error occurred during adding application.',
     // };
   }
-  redirect(`/application/${id}`); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
+  console.log('formAction success');
+  redirect('/application'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
 }
 
 export default PostAction;
