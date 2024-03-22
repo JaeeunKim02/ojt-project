@@ -8,7 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper'; //포스트잇처럼 화면에서 도드라짐-elevation:튀어나옴, outlined:윤곽선
 import { Button } from '@mui/material';
-import UpdateApp from './UpdateApp';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 
@@ -80,9 +79,9 @@ export default async function BasicTable() {
                       </Button>
                     </TableCell>
                     <TableCell>
-                      <form action={UpdateApp}>
-                        <Button type="submit">Update</Button>
-                      </form>
+                      <Link href={`/application/update/${apps.id}`}>
+                        Update
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}
