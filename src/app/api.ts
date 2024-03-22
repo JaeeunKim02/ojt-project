@@ -21,3 +21,4 @@ export default async function fetchAPI(
   const body = JSON.stringify(data);
   return await fetch(url, { method, headers, body });
 }
+//[ ]fetch 공통화 고민하기
