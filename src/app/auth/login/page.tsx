@@ -5,7 +5,6 @@ import { useFormState } from 'react-dom';
 import onFormPostAction from './formAction';
 
 const styles: React.CSSProperties = {
-  height: '100vh',
   display: 'flex',
   justifyContent: 'flex-start', // 시작 지점에서 아이템들 정렬
   alignItems: 'center', //가로 축 중앙 정렬

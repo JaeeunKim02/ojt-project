@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 
 const styles: React.CSSProperties = {
-  height: '100vh',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: 'rgb(255,255,255)',

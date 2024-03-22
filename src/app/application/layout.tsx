@@ -1,14 +1,14 @@
 export default async function Layout({
-  createAppModal,
+  AppModal,
   children,
 }: {
-  createAppModal: React.ReactNode;
+  AppModal: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
     <>
       <div>{children}</div>
-      <div>{createAppModal}</div>
+      <div>{AppModal}</div>
     </>
   );
 }

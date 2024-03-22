@@ -7,7 +7,7 @@ import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
 import PostAction from './formAction';
 //[ ] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
-//[ ] 뒤로가기, 홈 버튼 항상 보일 수 있게
+//[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
