@@ -59,9 +59,16 @@ export default function Page({ params }: { params: { id: string } }) {
             marginTop: '20px',
           }}
         >
-          {/* <input type="hidden" name="id" id="id" value={params.id}></input> */}
-          <TextField id="name" label="name" variant="outlined" name="name" />
+          <input type="hidden" name="id" id="id" value={params.id}></input>
           <TextField
+            required
+            id="name"
+            label="name"
+            variant="outlined"
+            name="name"
+          />
+          <TextField
+            required
             id="description"
             label="description"
             variant="outlined"

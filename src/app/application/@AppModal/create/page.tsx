@@ -57,8 +57,15 @@ export default function Page() {
             marginTop: '20px',
           }}
         >
-          <TextField id="name" label="name" variant="outlined" name="name" />
           <TextField
+            required
+            id="name"
+            label="name"
+            variant="outlined"
+            name="name"
+          />
+          <TextField
+            required
             id="description"
             label="description"
             variant="outlined"

@@ -1,5 +1,8 @@
 'use server';
 import { cookies } from 'next/headers';
+import { Button, TextField } from '@mui/material';
+import formAction from './formAction';
+
 export default async function GotoApp({ params }: { params: { id: string } }) {
   const accessToken = cookies().get('accessToken')?.value;
   try {
@@ -17,14 +20,42 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
       console.log(dto.id, dto.name, dto.description);
       return (
         <div>
-          <h1>{dto.id}</h1>
-          <h1>{dto.name}</h1>
-          <h1>{dto.description}</h1>
+          <h2>{dto.name}</h2>
+          <form
+            action={formAction}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '10px',
+            }}
+          >
+            <TextField disabled id="id" label="id" defaultValue={dto.id} />
+            <TextField
+              required
+              id="name"
+              label="name"
+              defaultValue={dto.name}
+            />
+            <TextField
+              required
+              id="description"
+              label="description"
+              defaultValue={dto.description}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              style={{ backgroundColor: '#1976d2', color: '#fff' }}
+            >
+              Update Application
+            </Button>
+          </form>
         </div>
       );
     }
   } catch (error) {
     console.error('Authentication error');
-    return { message: `${error}` || 'An error occurred.' };
+    // return { message: `${error}` || 'An error occurred.' };
   }
 }
