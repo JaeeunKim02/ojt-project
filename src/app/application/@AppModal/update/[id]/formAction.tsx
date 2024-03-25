@@ -42,7 +42,7 @@ async function PostAction(prevState: FormState, formData: FormData) {
       message: `${error}` || 'An error occurred during adding application.',
     };
   }
-  redirect('/application'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
+  redirect('/application?page=1&size=10'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
 }
 
 export default PostAction;

@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
 
   if (
     request.nextUrl.pathname === '/mypage' ||
-    request.nextUrl.pathname === '/application'
+    request.nextUrl.pathname.startsWith('/application')
   ) {
     const accessToken = request.cookies.get('accessToken')?.value;
     const userId = request.cookies.get('userId')?.value;
@@ -57,5 +57,5 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // 이 Middleware가 동작할 경로들을 추가해주면된다.
-  matcher: ['/mypage', '/', '/application'],
+  matcher: ['/mypage', '/', '/application/:path*'],
 };
