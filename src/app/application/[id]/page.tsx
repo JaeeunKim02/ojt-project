@@ -91,6 +91,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
     }
   } catch (error) {
     console.error('Authentication error');
+    return <>Sorry... Application not found.</>;
     // return { message: `${error}` || 'An error occurred.' };
   }
 }

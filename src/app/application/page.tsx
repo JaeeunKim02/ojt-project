@@ -72,7 +72,7 @@ export default async function BasicTable({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dto.map((apps: AppsDto) => (
+                {dto.appList.map((apps: AppsDto) => (
                   <TableRow
                     key={apps.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -97,14 +97,40 @@ export default async function BasicTable({
               </TableBody>
             </Table>
           </TableContainer>
-          <Link
-            href={{
-              pathname: '/application',
-              query: { page: `${page + 1}`, size: `${size}` },
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '15px',
+              justifyContent: 'center',
             }}
           >
-            next
-          </Link>
+            {page === 1 ? (
+              <span style={{ color: 'gray' }}>이전</span>
+            ) : (
+              <Link
+                href={{
+                  pathname: '/application',
+                  query: { page: `${page - 1}`, size: `${size}` },
+                }}
+              >
+                이전
+              </Link>
+            )}
+            <span>{dto.currentPage}</span>
+            {page === dto.maxPage ? (
+              <span style={{ color: 'gray' }}>다음</span>
+            ) : (
+              <Link
+                href={{
+                  pathname: '/application',
+                  query: { page: `${page + 1}`, size: `${size}` },
+                }}
+              >
+                다음
+              </Link>
+            )}
+          </div>
         </div>
       );
     }
