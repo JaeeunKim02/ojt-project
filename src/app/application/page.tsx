@@ -23,12 +23,22 @@ interface AppsDto {
   name: string;
   description: string;
 }
-export default async function BasicTable() {
+export default async function BasicTable({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   'use server';
+  // const searchParams = request.nextUrl.searchParams;
+  // console.log(params);
+  console.log(searchParams);
+  const page = Number(searchParams?.page);
+  const size = Number(searchParams?.size);
+  console.log(page, size);
   try {
     const accessToken = cookies().get('accessToken')?.value;
     const res = await fetch(
-      `${process.env.API_URL}/application/list?page=1&size=10`,
+      `${process.env.API_URL}/application/list?page=${page}&size=${size}`,
       {
         method: 'GET',
         headers: {
@@ -87,6 +97,14 @@ export default async function BasicTable() {
               </TableBody>
             </Table>
           </TableContainer>
+          <Link
+            href={{
+              pathname: '/application',
+              query: { page: `${page + 1}`, size: `${size}` },
+            }}
+          >
+            next
+          </Link>
         </div>
       );
     }

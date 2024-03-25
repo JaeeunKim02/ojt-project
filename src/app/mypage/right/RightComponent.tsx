@@ -13,7 +13,7 @@ export const styles: React.CSSProperties = {
 
 export const blank: React.CSSProperties = {
   width: '100%',
-  height: '140px',
+  height: '50%',
 };
 
 const RightComponent: React.FC = () => {
