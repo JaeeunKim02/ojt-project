@@ -50,7 +50,8 @@ export default function RootLayout({
           <Loginbutton isLoggedIn={isLoggedIn} />
           <Link href="/user/register">Sign up</Link>
           <Button href="/mypage">My Page</Button>
-          <Button href="/application?page=1&size=10">App</Button>
+          <Button href="/application?page=1&size=10">App 1</Button>
+          <Button href="/application2?page=1&size=12">App 2</Button>
         </div>
         <div>{children}</div>
       </body>
