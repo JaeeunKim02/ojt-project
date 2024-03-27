@@ -61,7 +61,12 @@ export default async function BasicTable({
           <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>
             Gaia Applications
           </h1>
-          <Link href="/application2/create">+ Add application</Link>
+          <Link
+            className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-blue-400 hover:bg-blue-500"
+            href="/application2/create"
+          >
+            + Add application
+          </Link>
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <div className="grid  gap-x-6 gap-y-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
             {dto.appList.map((app: AppsDto) => (
@@ -69,7 +74,7 @@ export default async function BasicTable({
                 id={app.id}
                 name={app.name}
                 description={app.description}
-                image={''}
+                image="/image/bagelcodeIcon.png"
               />
             ))}
           </div>

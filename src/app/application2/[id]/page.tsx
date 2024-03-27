@@ -3,13 +3,14 @@ import React from 'react';
 import { cookies } from 'next/headers';
 import { Button, TextField } from '@mui/material';
 import formAction from './formAction';
+import Image from 'next/image';
 
 const styles: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   margin: '70px',
   padding: '50px',
-  backgroundColor: 'rgb(240,240,240)',
+  // backgroundColor: 'rgb(240,240,240)',
   gap: '90px',
 };
 const textFieldSx: React.CSSProperties = {
@@ -34,8 +35,23 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
       const dto = await res.json();
       console.log(dto.id, dto.name, dto.description);
       return (
-        <div style={styles}>
-          <h2 style={{ fontSize: '25px', fontWeight: 'bold' }}>{dto.name}</h2>
+        <div className="rounded-lg bg-slate-100" style={styles}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '25px',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              src="/image/bagelcodeIcon.png"
+              alt="picture"
+              width="50"
+              height="50"
+            />
+            <h2 style={{ fontSize: '25px', fontWeight: 'bold' }}>{dto.name}</h2>
+          </div>
           <form
             action={formAction}
             style={{
