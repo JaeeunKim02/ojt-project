@@ -60,12 +60,14 @@ export default async function BasicTable({
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <div className="grid  gap-x-6 gap-y-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">
             {dto.appList.map((app: AppsDto) => (
-              <AppBox
-                id={app.id}
-                name={app.name}
-                description={app.description}
-                image="/image/bagelcodeIcon.png"
-              />
+              <div key={app.id}>
+                <AppBox
+                  id={app.id}
+                  name={app.name}
+                  description={app.description}
+                  image="/image/bagelcodeIcon.png"
+                />
+              </div>
             ))}
           </div>
           <div className="flex flex-row justify-center gap-[15px] m-[30px]">
