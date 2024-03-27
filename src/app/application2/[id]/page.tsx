@@ -4,7 +4,11 @@ import { cookies } from 'next/headers';
 import { Button, TextField } from '@mui/material';
 import formAction from './formAction';
 import Image from 'next/image';
-
+const textFieldStyle = {
+  marginTop: '10px',
+  marginBottom: '30px',
+  width: '30%',
+};
 export default async function GotoApp({ params }: { params: { id: string } }) {
   const accessToken = cookies().get('accessToken')?.value;
   try {
@@ -34,7 +38,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
           <form action={formAction} className="flex flex-col gap-[10px]">
             <p>ID</p>
             <TextField
-              className="mt-[10px] mb-[30px] w-[30%]"
+              style={textFieldStyle}
               InputProps={{
                 readOnly: true,
               }}
@@ -45,7 +49,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
             />
             <p>NAME</p>
             <TextField
-              className="mt-[10px] mb-[30px] w-[30%]"
+              style={textFieldStyle}
               required
               id="name"
               name="name"
@@ -54,7 +58,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
             />
             <p>DESCRIPTION</p>
             <TextField
-              className="mt-[10px] mb-[30px] w-[30%]"
+              style={textFieldStyle}
               required
               id="description"
               name="description"
