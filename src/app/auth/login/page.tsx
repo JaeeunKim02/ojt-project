@@ -15,7 +15,7 @@ function LoginPage() {
     flex-col 
     pt-[25vh] 
     pb-[25vh] 
-    gap-[10px] 
+    gap-[20px] 
   "
     >
       <h2>Log in</h2>
@@ -31,7 +31,7 @@ function LoginPage() {
         <Button
           type="submit"
           variant="contained"
-          className="bg-[#1976d2] text-[#fff]"
+          className="bg-[#1976d2] text-[#fff] m-[10px]"
         >
           LOG IN
         </Button>

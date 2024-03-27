@@ -15,7 +15,7 @@ function SignupPage() {
     flex-col 
     pt-[25vh] 
     pb-[25vh] 
-    gap-[10px] 
+    gap-[20px] 
   "
     >
       <h2>Sign up</h2>
@@ -32,7 +32,7 @@ function SignupPage() {
         <Button
           type="submit"
           variant="contained"
-          className="bg-[#1976d2] text-[#fff]"
+          className="bg-[#1976d2] text-[#fff] m-[10px]"
         >
           SIGN UP
         </Button>
