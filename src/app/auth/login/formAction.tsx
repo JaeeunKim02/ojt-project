@@ -4,18 +4,6 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import fetchAPI from '../../api';
 
-const styles: React.CSSProperties = {
-  height: '100vh',
-  display: 'flex',
-  justifyContent: 'flex-start', // 시작 지점에서 아이템들 정렬
-  alignItems: 'center', //가로 축 중앙 정렬
-  flexDirection: 'column', //아이템들 세로로 정렬
-  paddingTop: '25vh',
-  paddingBottom: '25vh',
-  gap: '10px', // 아이템들 사이 간격
-  backgroundColor: 'rgb(255,255,255)',
-};
-
 interface UserDto {
   id: string;
   name: string;

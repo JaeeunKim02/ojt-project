@@ -4,31 +4,22 @@ import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
 import onFormPostAction from './formAction';
 
-const styles: React.CSSProperties = {
-  display: 'flex',
-  justifyContent: 'flex-start', // 시작 지점에서 아이템들 정렬
-  alignItems: 'center', //가로 축 중앙 정렬
-  flexDirection: 'column', //아이템들 세로로 정렬
-  paddingTop: '25vh',
-  paddingBottom: '25vh',
-  gap: '10px', // 아이템들 사이 간격
-  backgroundColor: 'rgb(255,255,255)',
-};
-
 function LoginPage() {
   const [state, action] = useFormState(onFormPostAction, { message: '' });
   return (
-    <div style={styles}>
+    <div
+      className="
+    flex 
+    justify-start 
+    items-center 
+    flex-col 
+    pt-[25vh] 
+    pb-[25vh] 
+    gap-[10px] 
+  "
+    >
       <h2>Log in</h2>
-      <form
-        action={action}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          flexDirection: 'column',
-          gap: '10px',
-        }}
-      >
+      <form action={action} className="flex items-center flex-col gap-[10px]">
         <TextField id="id" label="id" variant="outlined" name="id" />
         <TextField
           type="password"
@@ -40,11 +31,11 @@ function LoginPage() {
         <Button
           type="submit"
           variant="contained"
-          style={{ backgroundColor: '#1976d2', color: '#fff' }}
+          className="bg-[#1976d2] text-[#fff]"
         >
           LOG IN
         </Button>
-        <p style={{ color: 'red' }}>{state.message}</p>
+        <p className="text-red-500">{state.message}</p>
       </form>
     </div>
   );

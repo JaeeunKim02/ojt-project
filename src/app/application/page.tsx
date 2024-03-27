@@ -11,13 +11,6 @@ import { Button } from '@mui/material';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 
-const styles: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  backgroundColor: 'rgb(255,255,255)',
-  padding: '50px',
-  gap: '20px',
-};
 interface AppsDto {
   id: number;
   name: string;
@@ -54,14 +47,12 @@ export default async function BasicTable({
     } else {
       const dto = await res.json();
       return (
-        <div style={styles}>
-          <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>
-            Gaia Applications
-          </h1>
+        <div className="flex flex-col bg-white p-[50px] gap-[20px]">
+          <h1 className="text-[25px] font-bold">Gaia Applications</h1>
           <Link href="/application/create">+ Add application</Link>
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table className="min-w-[650px]" aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>
@@ -97,16 +88,9 @@ export default async function BasicTable({
               </TableBody>
             </Table>
           </TableContainer>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '15px',
-              justifyContent: 'center',
-            }}
-          >
+          <div className="flex flex-row justify-center gap-[15px]">
             {page === 1 ? (
-              <span style={{ color: 'gray' }}>이전</span>
+              <span className="text-gray-400">이전</span>
             ) : (
               <Link
                 href={{
@@ -119,7 +103,7 @@ export default async function BasicTable({
             )}
             <span>{dto.currentPage}</span>
             {page === dto.maxPage ? (
-              <span style={{ color: 'gray' }}>다음</span>
+              <span className="text-gray-400">다음</span>
             ) : (
               <Link
                 href={{

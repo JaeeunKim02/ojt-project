@@ -1,26 +1,9 @@
 'use server';
 import React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper'; //포스트잇처럼 화면에서 도드라짐-elevation:튀어나옴, outlined:윤곽선
-import { Button } from '@mui/material';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import AppBox from '../components/AppBox';
 
-const styles: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  backgroundColor: 'rgb(255,255,255)',
-  paddingTop: '50px',
-  paddingLeft: '30%',
-  paddingRight: '30%',
-  gap: '20px',
-};
 interface AppsDto {
   id: number;
   name: string;
@@ -57,10 +40,17 @@ export default async function BasicTable({
     } else {
       const dto = await res.json();
       return (
-        <div style={styles}>
-          <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>
-            Gaia Applications
-          </h1>
+        <div
+          className="
+        flex 
+        flex-col 
+        pt-[50px]
+        pl-[30%] 
+        pr-[30%] 
+        gap-[20px]
+      "
+        >
+          <h1 className="text-[25px] font-bold">Gaia Applications</h1>
           <Link
             className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-blue-400 hover:bg-blue-500"
             href="/application2/create"
@@ -78,17 +68,9 @@ export default async function BasicTable({
               />
             ))}
           </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '15px',
-              justifyContent: 'center',
-              margin: '30px',
-            }}
-          >
+          <div className="flex flex-row justify-center gap-[15px] m-[30px]">
             {page === 1 ? (
-              <span style={{ color: 'gray' }}>이전</span>
+              <span className="text-gray-400">이전</span>
             ) : (
               <Link
                 href={{
@@ -101,7 +83,7 @@ export default async function BasicTable({
             )}
             <span>{dto.currentPage}</span>
             {page === dto.maxPage ? (
-              <span style={{ color: 'gray' }}>다음</span>
+              <span className="text-gray-400">다음</span>
             ) : (
               <Link
                 href={{

@@ -39,23 +39,13 @@ export default function Page() {
         </Typography>
         <Typography
           id="modal-modal-description"
-          sx={{
-            marginTop: '5px',
-            color: 'rgb(150,150,150)',
-            fontSize: '15.5px',
-          }}
+          className="mt-[5px] text-[rgb(150,150,150)] text-[15.5px]"
         >
           * name, description is required *
         </Typography>
         <form
           action={action}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            flexDirection: 'column',
-            gap: '10px',
-            marginTop: '20px',
-          }}
+          className="flex items-center flex-col gap-[10px] mt-[20px]"
         >
           <TextField
             required
@@ -74,15 +64,11 @@ export default function Page() {
           <Button
             type="submit"
             variant="contained"
-            style={{
-              backgroundColor: '#1976d2',
-              color: '#fff',
-              marginTop: '10px',
-            }}
+            className="bg-[#1976d2] text-[#fff] mt-[10px]"
           >
             Add Application
           </Button>
-          <p style={{ color: 'red' }}>{state.message}</p>
+          <p className="text-red-500">{state.message}</p>
         </form>
       </Box>
     </Modal>

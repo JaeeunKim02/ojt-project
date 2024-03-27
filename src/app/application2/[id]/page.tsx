@@ -5,20 +5,6 @@ import { Button, TextField } from '@mui/material';
 import formAction from './formAction';
 import Image from 'next/image';
 
-const styles: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  margin: '70px',
-  padding: '50px',
-  // backgroundColor: 'rgb(240,240,240)',
-  gap: '90px',
-};
-const textFieldSx: React.CSSProperties = {
-  marginTop: '10px',
-  marginBottom: '30px',
-  width: '30%',
-};
-
 export default async function GotoApp({ params }: { params: { id: string } }) {
   const accessToken = cookies().get('accessToken')?.value;
   try {
@@ -35,34 +21,20 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
       const dto = await res.json();
       console.log(dto.id, dto.name, dto.description);
       return (
-        <div className="rounded-lg bg-slate-100" style={styles}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '25px',
-              alignItems: 'center',
-            }}
-          >
+        <div className="flex rounded-lg bg-slate-100 flex-col m-[70px] p-[50px] gap-[90px]">
+          <div className="flex flex-row gap-[25px] items-center">
             <Image
               src="/image/bagelcodeIcon.png"
               alt="picture"
               width="50"
               height="50"
             />
-            <h2 style={{ fontSize: '25px', fontWeight: 'bold' }}>{dto.name}</h2>
+            <h2 className="text-[25px] font-bold">{dto.name}</h2>
           </div>
-          <form
-            action={formAction}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-            }}
-          >
+          <form action={formAction} className="flex flex-col gap-[10px]">
             <p>ID</p>
             <TextField
-              style={textFieldSx}
+              className="mt-[10px] mb-[30px] w-[30%]"
               InputProps={{
                 readOnly: true,
               }}
@@ -73,7 +45,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
             />
             <p>NAME</p>
             <TextField
-              style={textFieldSx}
+              className="mt-[10px] mb-[30px] w-[30%]"
               required
               id="name"
               name="name"
@@ -82,31 +54,21 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
             />
             <p>DESCRIPTION</p>
             <TextField
-              style={textFieldSx}
+              className="mt-[10px] mb-[30px] w-[30%]"
               required
               id="description"
               name="description"
               label="description"
               defaultValue={dto.description}
             />
-            <div
-              style={{
-                margin: '20px',
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '15px',
-              }}
-            >
+            <div className="flex flex-row gap-[15px] m-[20px]">
               <Button href="/application2?page=1&size=12" variant="outlined">
                 Cancel
               </Button>
               <Button
                 type="submit"
                 variant="contained"
-                style={{
-                  backgroundColor: '#1976d2',
-                  color: '#fff',
-                }}
+                className="bg-[#1976d2] text-[#fff]"
               >
                 Update Application
               </Button>
