@@ -69,6 +69,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
               <Button href="/application2?page=1&size=12" variant="outlined">
                 Cancel
               </Button>
+              {/* [ ] */}
               <Button
                 type="submit"
                 variant="contained"

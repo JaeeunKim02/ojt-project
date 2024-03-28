@@ -52,7 +52,7 @@ export default async function BasicTable({
           <Link href="/application/create">+ Add application</Link>
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <TableContainer component={Paper}>
-            <Table className="min-w-[650px]" aria-label="simple table">
+            <Table style={{ minWidth: '650px' }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>

@@ -29,10 +29,15 @@ function SignupPage() {
           variant="filled"
           name="password"
         />
+        {/* [ ] */}
         <Button
           type="submit"
           variant="contained"
-          className="bg-[#1976d2] text-[#fff] m-[10px]"
+          style={{
+            backgroundColor: '#1976d2',
+            color: '#fff',
+            marginTop: '10px',
+          }}
         >
           SIGN UP
         </Button>

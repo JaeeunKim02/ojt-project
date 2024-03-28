@@ -39,6 +39,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Update your application
         </Typography>
+        {/* [ ] */}
         <Typography
           id="modal-modal-description"
           className="mt-[5px] text-[rgb(150,150,150)] text-[15.5px]"
@@ -64,6 +65,7 @@ export default function Page({ params }: { params: { id: string } }) {
             variant="outlined"
             name="description"
           />
+          {/* [ ] */}
           <Button
             type="submit"
             variant="contained"
