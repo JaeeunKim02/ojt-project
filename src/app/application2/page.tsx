@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import AppBox from '../components/AppBox';
+import AppBox from './components/AppBox';
 
 interface AppsDto {
   id: number;

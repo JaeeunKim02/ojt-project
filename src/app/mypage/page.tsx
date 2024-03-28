@@ -1,5 +1,5 @@
-import LeftNavigation from './left/LeftNavigation';
-import RightComponent from './right/RightComponent';
+import LeftNavigation from './components/left/LeftNavigation';
+import RightComponent from './components/right/RightComponent';
 import React from 'react';
 
 const styles: React.CSSProperties = {
