@@ -1,7 +1,7 @@
 'use server';
 import React from 'react';
 import { redirect } from 'next/navigation';
-import fetchAPI from '../../../api';
+import fetchAPI from '../../../../api/api';
 import { cookies } from 'next/headers';
 
 const styles: React.CSSProperties = {

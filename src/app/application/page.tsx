@@ -74,9 +74,7 @@ export default async function BasicTable({
                     <TableCell>{apps.name}</TableCell>
                     <TableCell>{apps.description}</TableCell>
                     <TableCell>
-                      <Button href={`/application/${apps.id}`} name="id">
-                        Goto
-                      </Button>
+                      <Button href={`/application/${apps.id}`}>Goto</Button>
                     </TableCell>
                     <TableCell>
                       <Link href={`/application/update/${apps.id}`}>

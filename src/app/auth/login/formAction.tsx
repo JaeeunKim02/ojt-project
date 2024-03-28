@@ -2,7 +2,7 @@
 import React from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import fetchAPI from '../../api';
+import fetchAPI from '../../../api/api';
 
 interface UserDto {
   id: string;

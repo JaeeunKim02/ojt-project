@@ -3,7 +3,7 @@
 'use server';
 import React from 'react';
 import { redirect } from 'next/navigation';
-import fetchAPI from '../../api';
+import fetchAPI from '../../../api/api';
 
 type FormState = {
   message: string;

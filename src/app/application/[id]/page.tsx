@@ -2,7 +2,7 @@
 import React from 'react';
 import { cookies } from 'next/headers';
 import { Button, TextField } from '@mui/material';
-import formAction from './formAction';
+import { updateApplication } from '../../../api/applicationApi';
 
 const textFieldStyle = {
   marginTop: '10px',
@@ -28,7 +28,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
       return (
         <div className="flex rounded-lg bg-slate-100 flex-col m-[70px] p-[50px] gap-[90px]">
           <h2 className="text-[25px] font-bold">{dto.name}</h2>
-          <form action={formAction} className="flex flex-col gap-[10px]">
+          <form action={updateApplication} className="flex flex-col gap-[10px]">
             <p>ID</p>
             <TextField
               style={textFieldStyle}
