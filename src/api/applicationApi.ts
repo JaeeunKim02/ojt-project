@@ -65,9 +65,9 @@ export async function createApplication(
 }
 
 export async function updateModal(prevState: FormState, formData: FormData) {
+  const accessToken = cookies().get('accessToken')?.value;
+  const id = formData.get('id');
   try {
-    const accessToken = cookies().get('accessToken')?.value;
-    const id = formData.get('id');
     const res = await fetchAPI(
       `/application/${id}`,
       'PUT',

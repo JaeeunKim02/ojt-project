@@ -25,11 +25,11 @@ const style = {
 };
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const router = useRouter();
-  const [state, action] = useFormState(updateModal, { message: '' });
-  const cookies = new Cookies();
-  const accessToken = cookies.get('accessToken');
   try {
+    const router = useRouter();
+    const [state, action] = useFormState(updateModal, { message: '' });
+    const cookies = new Cookies();
+    const accessToken = cookies.get('accessToken');
     const res = await fetch(`${process.env.API_URL}/application/${params.id}`, {
       method: 'GET',
       headers: {
@@ -77,7 +77,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 defaultValue={dto.name}
               />
               <TextField
-                required
+                // required
                 id="description"
                 label="description"
                 variant="outlined"
