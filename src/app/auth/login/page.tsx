@@ -2,10 +2,10 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
-import onFormPostAction from './formAction';
+import loginApi from '../../../api/loginApi';
 
 function LoginPage() {
-  const [state, action] = useFormState(onFormPostAction, { message: '' });
+  const [state, action] = useFormState(loginApi, { message: '' });
   return (
     <div
       className="

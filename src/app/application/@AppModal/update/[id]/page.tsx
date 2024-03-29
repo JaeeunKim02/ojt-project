@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
-import PostAction from './formAction';
+import { updateModal } from '../../../../../api/applicationApi';
 //[x] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
 //[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
 const style = {
@@ -24,7 +24,7 @@ const style = {
 
 export default function Page({ params }: { params: { id: string } }) {
   const router = useRouter();
-  const [state, action] = useFormState(PostAction, { message: '' });
+  const [state, action] = useFormState(updateModal, { message: '' });
   console.log(params.id);
   return (
     <Modal

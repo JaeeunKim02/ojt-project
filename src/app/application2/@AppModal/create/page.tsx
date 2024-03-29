@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
-import onFormPostAction from './formAction';
+import { createApplication } from '../../../../api/application2Api';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -23,7 +23,7 @@ const style = {
 
 export default function Page() {
   const router = useRouter();
-  const [state, action] = useFormState(onFormPostAction, { message: '' });
+  const [state, action] = useFormState(createApplication, { message: '' });
   return (
     <Modal
       open={true}

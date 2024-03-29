@@ -1,8 +1,7 @@
 'use server';
-import React from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import fetchAPI from '../../../api/api';
+import fetchAPI from './api';
 
 interface UserDto {
   id: string;

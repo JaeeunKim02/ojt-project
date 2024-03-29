@@ -1,9 +1,8 @@
 //[x] api 호출 오류 어떻게 확인? -> try catch 구문이나 Promise의 .catch() 를 사용하여 에러 캐치
 //[x] 환경변수
 'use server';
-import React from 'react';
 import { redirect } from 'next/navigation';
-import fetchAPI from '../../../api/api';
+import fetchAPI from './api';
 
 type FormState = {
   message: string;
