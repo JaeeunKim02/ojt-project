@@ -89,3 +89,14 @@ export async function updateModal(prevState: FormState, formData: FormData) {
   }
   redirect('/application?page=1&size=10'); //try-catch 문에서 사용은 자제하기, try 안에서 redirect 하면 redirect가 내부적으로 error로 인식해버림!
 }
+
+export async function getApplication(id: string) {
+  const accessToken = cookies().get('accessToken')?.value;
+  const res = await fetch(`${process.env.API_URL}/application/${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return await res.json();
+}
