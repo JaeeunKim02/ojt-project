@@ -11,14 +11,13 @@ export async function updateApplication(formData: FormData) {
   const id = formData.get('id');
   const accessToken = cookies().get('accessToken')?.value;
   try {
-    const res = await fetchAPI(
+    const res = await fetchAPI.put(
       `/application/${id}`,
-      'PUT',
       {
         name: formData.get('name'),
         description: formData.get('description'),
       },
-      `Bearer ${accessToken}`,
+      `${accessToken}`,
     );
     if (!res.ok) {
       console.log(res);
@@ -42,14 +41,13 @@ export async function createApplication(
 ) {
   try {
     const accessToken = cookies().get('accessToken')?.value;
-    const res = await fetchAPI(
+    const res = await fetchAPI.post(
       '/application',
-      'POST',
       {
         name: formData.get('name'),
         description: formData.get('description'),
       },
-      `Bearer ${accessToken}`,
+      `${accessToken}`,
     );
     if (!res.ok) {
       if (res.status === 401) throw new Error('Unauthorized');

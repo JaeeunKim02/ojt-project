@@ -1,24 +1,43 @@
-export default async function fetchAPI(
-  path: string,
-  method: string,
-  data: Record<string, unknown>,
-  authorization?: string,
-) {
-  const url = `${process.env.API_URL}${path}`;
-  let headers;
-  if (authorization) {
-    headers = {
+const fetchAPI = {
+  async get(path: string, accessToken: string) {
+    const url = `${process.env.API_URL}${path}`;
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    return await fetch(url, { method: 'GET', headers: headers });
+  },
+  async post(
+    path: string,
+    data: Record<string, unknown>,
+    accessToken?: string,
+  ) {
+    const url = `${process.env.API_URL}${path}`;
+    let headers;
+    if (accessToken) {
+      headers = {
+        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
+        accept: 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      };
+    } else {
+      headers = {
+        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
+        accept: 'application/json',
+      };
+    }
+    const body = JSON.stringify(data);
+    return await fetch(url, { method: 'POST', headers: headers, body: body });
+  },
+  async put(path: string, data: Record<string, unknown>, accessToken?: string) {
+    const url = `${process.env.API_URL}${path}`;
+    const headers = {
       'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
       accept: 'application/json',
-      Authorization: authorization,
+      Authorization: `Bearer ${accessToken}`,
     };
-  } else {
-    headers = {
-      'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
-      accept: 'application/json',
-    };
-  }
-  const body = JSON.stringify(data);
-  return await fetch(url, { method, headers, body });
-}
-//[ ]fetch 공통화 고민하기
+    const body = JSON.stringify(data);
+    return await fetch(url, { method: 'PUT', headers: headers, body: body });
+  },
+};
+
+export default fetchAPI;

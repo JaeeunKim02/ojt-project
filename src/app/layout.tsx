@@ -40,6 +40,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const isLoggedIn: boolean = !!cookies().get('accessToken')?.value; //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
+  const permission: string = cookies().get('permission')?.value ?? '';
+  const userId: string = cookies().get('userId')?.value ?? '';
+  console.log(isLoggedIn, permission, userId);
   return (
     <html lang="en">
       <body className={inter.className} style={styles}>
@@ -49,10 +52,13 @@ export default function RootLayout({
           </Button>
           {/* button에 className의 적용이 딜레이 됨... */}
           <Loginbutton isLoggedIn={isLoggedIn} />
-          <Link href="/user/register">Sign up</Link>
-          <Button href="/mypage">My Page</Button>
-          <Button href="/application?page=1&size=10">App 1</Button>
-          <Button href="/application2?page=1&size=12">App 2</Button>
+          <Link href="/signup">Sign up</Link>
+          <Button href={`/mypage/${userId}`}>My Page</Button>
+          {(permission === 'admin' || permission === 'manager') && (
+            <Button href="/application?page=1&size=10">User List</Button>
+          )}
+          {/* <Button href="/application?page=1&size=10">User List</Button> */}
+          <Button href="/application2?page=1&size=12">App List</Button>
         </div>
         <div>{children}</div>
       </body>

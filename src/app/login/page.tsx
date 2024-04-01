@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
-import loginApi from '../../../api/loginApi';
+import loginApi from '../../api/loginApi';
 
 function LoginPage() {
   const [state, action] = useFormState(loginApi, { message: '' });

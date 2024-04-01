@@ -6,27 +6,30 @@ import fetchAPI from './api';
 interface UserDto {
   id: string;
   name: string;
+  permission: string;
 }
 
 interface LoginResponseDto {
-  accessToken: string;
   user: UserDto;
+  accessToken: string;
 }
 type FormState = {
   message: string;
 };
 async function onFormPostAction(prevState: FormState, formData: FormData) {
   try {
-    const res = await fetchAPI('/auth/login', 'POST', {
+    const res = await fetchAPI.post('/auth/login', {
       id: formData.get('id'),
       password: formData.get('password'),
     });
     if (!res.ok) {
       throw new Error('Login failed');
     } else {
+      console.log(res);
       const dto: LoginResponseDto = await res.json(); // 안될 때 awiat Promise.resolve(res.json());
       cookies().set('accessToken', dto.accessToken);
       cookies().set('userId', dto.user.id);
+      cookies().set('permission', dto.user.permission);
     }
   } catch (error) {
     console.error('Login error:', error);

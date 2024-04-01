@@ -24,12 +24,13 @@ export async function middleware(request: NextRequest) {
       let response = NextResponse.next();
       response.cookies.delete('accessToken');
       response.cookies.delete('userId');
+      response.cookies.delete('permission');
       return response;
     }
   }
 
   if (
-    request.nextUrl.pathname === '/mypage' ||
+    request.nextUrl.pathname.startsWith('/mypage') ||
     request.nextUrl.pathname.startsWith('/application') ||
     request.nextUrl.pathname.startsWith('/application2')
   ) {
@@ -37,7 +38,7 @@ export async function middleware(request: NextRequest) {
     const userId = request.cookies.get('userId')?.value;
 
     if (!accessToken) {
-      return NextResponse.redirect(new URL('/auth/login', request.url));
+      return NextResponse.redirect(new URL('/login', request.url));
     }
 
     const res = await fetch(`${process.env.API_URL}/user/info/${userId}`, {
@@ -50,7 +51,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     } else {
       console.error('Authentication error');
-      return NextResponse.redirect(new URL('/auth/login', request.url));
+      return NextResponse.redirect(new URL('/login', request.url));
     }
   }
 }
@@ -58,5 +59,10 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   // 이 Middleware가 동작할 경로들을 추가해주면된다.
-  matcher: ['/mypage', '/', '/application/:path*', '/application2/:path*'],
+  matcher: [
+    '/mypage/:path*',
+    '/',
+    '/application/:path*',
+    '/application2/:path*',
+  ],
 };

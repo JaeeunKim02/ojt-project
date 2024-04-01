@@ -10,7 +10,7 @@ const Loginbutton: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
           <button type="submit">Log out</button>
         </form>
       ) : (
-        <a href="/auth/login">Log In</a>
+        <a href="/login">Log In</a>
       )}
     </>
   );
