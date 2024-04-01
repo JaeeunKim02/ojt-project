@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
-import { createApplication } from '../../../../api/application2Api';
-
+import { userPermission } from '../../../../../api/userApi';
+//[x] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
+//[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -21,9 +22,16 @@ const style = {
   flexDirection: 'column',
 };
 
-export default function Page() {
+export default function UpdateModal({
+  userId,
+  defaultPermission,
+}: {
+  userId: string;
+  defaultPermission: string;
+}) {
   const router = useRouter();
-  const [state, action] = useFormState(createApplication, { message: '' });
+  const [state, action] = useFormState(userPermission, { message: '' });
+  console.log(userId);
   return (
     <Modal
       open={true}
@@ -35,32 +43,36 @@ export default function Page() {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Add your application
+          Set User Permission
         </Typography>
         {/* [ ] */}
         <Typography
           id="modal-modal-description"
           className="mt-[5px] text-[rgb(150,150,150)] text-[15.5px]"
         >
-          * name, description is required *
+          * User Id, Permission is required *
         </Typography>
         <form
           action={action}
           className="flex items-center flex-col gap-[10px] mt-[20px]"
         >
           <TextField
-            required
-            id="name"
-            label="name"
+            InputProps={{
+              readOnly: true,
+            }}
+            id="userId"
+            label="User ID"
             variant="outlined"
-            name="name"
+            name="userId"
+            defaultValue={userId}
           />
           <TextField
-            required
-            id="description"
-            label="description"
+            // required
+            id="permission"
+            label="Permission"
             variant="outlined"
-            name="description"
+            name="permission"
+            defaultValue={defaultPermission}
           />
           {/* [ ] */}
           <Button
@@ -68,7 +80,7 @@ export default function Page() {
             variant="contained"
             className="bg-[#1976d2] text-[#fff] mt-[10px]"
           >
-            Add Application
+            Set Permission
           </Button>
           <p className="text-red-500">{state.message}</p>
         </form>

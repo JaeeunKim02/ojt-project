@@ -2,7 +2,7 @@
 import React from 'react';
 import { cookies } from 'next/headers';
 import { Button, TextField } from '@mui/material';
-import { updateApplication } from '../../../api/application2Api';
+import { updateApplication } from '../../../api/applicationApi';
 import Image from 'next/image';
 const textFieldStyle = {
   marginTop: '10px',
@@ -66,7 +66,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
               defaultValue={dto.description}
             />
             <div className="flex flex-row gap-[15px] m-[20px]">
-              <Button href="/application2?page=1&size=12" variant="outlined">
+              <Button href="/application?page=1&size=12" variant="outlined">
                 Cancel
               </Button>
               {/* [ ] */}

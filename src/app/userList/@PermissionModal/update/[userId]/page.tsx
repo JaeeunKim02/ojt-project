@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
-import { updateModal, getApplication } from '../../../../../api/applicationApi';
+import { userInfo } from '../../../../../api/userApi';
 //[x] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
 //[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
 const style = {
@@ -22,14 +22,10 @@ const style = {
   flexDirection: 'column',
 };
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const res = await getApplication(params.id);
-  console.log(res.id, res.name, res.description);
+export default async function Page({ params }: { params: { userId: string } }) {
+  const res = await userInfo(params.userId);
+  console.log(res.id, res.name, res.permission);
   return (
-    <UpdateModal
-      id={params.id}
-      defaultName={res.name}
-      defaultDescription={res.description}
-    />
+    <UpdateModal userId={params.userId} defaultPermission={res.permission} />
   );
 }

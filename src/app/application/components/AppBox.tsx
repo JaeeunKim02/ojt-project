@@ -13,7 +13,7 @@ export default function AppBox({
   image: string;
 }) {
   return (
-    <a href={`/application2/${id}`}>
+    <a href={`/application/${id}`}>
       {/* a 테그 안의 div 는 a 태그의 tailwind css 가 적용안됨 */}
       {/* a 태그 안에 span 이나 svg 같은 태그들은 a 태그의 tailwind css 가 적용됨. */}
       {/* a 태그 안에 또 a 태그 쓰는거 안됨! */}

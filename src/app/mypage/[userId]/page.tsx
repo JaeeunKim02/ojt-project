@@ -17,7 +17,6 @@ export default async function Mypage({
 }: {
   params: { userId: string };
 }) {
-  console.log(params.userId);
   const res = await userInfo(params.userId);
   return (
     <>

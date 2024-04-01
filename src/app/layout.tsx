@@ -55,10 +55,10 @@ export default function RootLayout({
           <Link href="/signup">Sign up</Link>
           <Button href={`/mypage/${userId}`}>My Page</Button>
           {(permission === 'admin' || permission === 'manager') && (
-            <Button href="/application?page=1&size=10">User List</Button>
+            <Button href="/userList?page=1&size=10">User List</Button>
           )}
           {/* <Button href="/application?page=1&size=10">User List</Button> */}
-          <Button href="/application2?page=1&size=12">App List</Button>
+          <Button href="/application?page=1&size=12">App List</Button>
         </div>
         <div>{children}</div>
       </body>

@@ -10,11 +10,12 @@ import Paper from '@mui/material/Paper'; //포스트잇처럼 화면에서 도�
 import { Button } from '@mui/material';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import fetchAPI from '@/api/api';
 
-interface AppsDto {
-  id: number;
+interface UsersDto {
+  id: string;
   name: string;
-  description: string;
+  permission: string;
 }
 export default async function BasicTable({
   searchParams,
@@ -24,62 +25,47 @@ export default async function BasicTable({
   'use server';
   // const searchParams = request.nextUrl.searchParams;
   // console.log(params);
-  console.log(searchParams);
   const page = Number(searchParams?.page);
   const size = Number(searchParams?.size);
-  console.log(page, size);
   try {
     const accessToken = cookies().get('accessToken')?.value;
-    const res = await fetch(
-      `${process.env.API_URL}/application/list?page=${page}&size=${size}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          accept: 'application/json',
-        },
-      },
+    const res = await fetchAPI.get(
+      `/user/list?page=${page}&size=${size}`,
+      `${accessToken}`,
     );
     if (!res.ok) {
-      console.log(res);
       if (res.status === 401) throw new Error('Unauthorized');
+      if (res.status === 403) throw new Error('permission denied');
       throw new Error('Invalid request');
     } else {
       const dto = await res.json();
       return (
         <div className="flex flex-col bg-white p-[50px] gap-[20px]">
-          <h1 className="text-[25px] font-bold">Gaia Applications</h1>
-          <Link href="/application/create">+ Add application</Link>
+          <h1 className="text-[25px] font-bold">Gaia Admin</h1>
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <TableContainer component={Paper}>
             <Table style={{ minWidth: '650px' }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>#</TableCell>
-                  <TableCell>App Name</TableCell>
-                  <TableCell>App Description</TableCell>
-                  <TableCell>Go to App</TableCell>
-                  <TableCell>Update App</TableCell>
+                  <TableCell>User ID</TableCell>
+                  <TableCell>User Name</TableCell>
+                  <TableCell>Permission</TableCell>
+                  <TableCell>Update permission</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {dto.appList.map((apps: AppsDto) => (
+                {dto.userList.map((user: UsersDto) => (
                   <TableRow
-                    key={apps.id}
+                    key={user.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {apps.id}
+                      {user.id}
                     </TableCell>
-                    <TableCell>{apps.name}</TableCell>
-                    <TableCell>{apps.description}</TableCell>
+                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.permission}</TableCell>
                     <TableCell>
-                      <Button href={`/application/${apps.id}`}>Goto</Button>
-                    </TableCell>
-                    <TableCell>
-                      <Link href={`/application/update/${apps.id}`}>
-                        Update
-                      </Link>
+                      <Link href={`/userList/update/${user.id}`}>Update</Link>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -92,7 +78,7 @@ export default async function BasicTable({
             ) : (
               <Link
                 href={{
-                  pathname: '/application',
+                  pathname: '/userList',
                   query: { page: `${page - 1}`, size: `${size}` },
                 }}
               >
@@ -105,7 +91,7 @@ export default async function BasicTable({
             ) : (
               <Link
                 href={{
-                  pathname: '/application',
+                  pathname: '/userList',
                   query: { page: `${page + 1}`, size: `${size}` },
                 }}
               >
@@ -117,10 +103,10 @@ export default async function BasicTable({
       );
     }
   } catch (error) {
-    console.error('Cannot get application list.', error);
+    console.error('Cannot get User list.', error);
     return (
       <>
-        <h1>Cannot get application list.</h1>
+        <h1>Cannot get User list.</h1>
       </>
     );
   }

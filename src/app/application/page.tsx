@@ -53,7 +53,7 @@ export default async function BasicTable({
           <h1 className="text-[25px] font-bold">Gaia Applications</h1>
           <Link
             className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-blue-400 hover:bg-blue-500"
-            href="/application2/create"
+            href="/application/create"
           >
             + Add application
           </Link>
@@ -76,7 +76,7 @@ export default async function BasicTable({
             ) : (
               <Link
                 href={{
-                  pathname: '/application2',
+                  pathname: '/application',
                   query: { page: `${page - 1}`, size: `${size}` },
                 }}
               >
@@ -89,7 +89,7 @@ export default async function BasicTable({
             ) : (
               <Link
                 href={{
-                  pathname: '/application2',
+                  pathname: '/application',
                   query: { page: `${page + 1}`, size: `${size}` },
                 }}
               >

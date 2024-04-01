@@ -26,26 +26,7 @@ export async function userInfo(userId: string) {
   }
 }
 
-export async function userList(page: number, size: number) {
-  const accessToken = cookies().get('accessToken')?.value;
-  try {
-    const res = await fetchAPI.get(
-      `/user/list?page=${page}&size=${size}`,
-      `${accessToken}`,
-    );
-    if (!res.ok) {
-      if (res.status === 401) throw new Error('Unauthorized');
-      if (res.status === 403) throw new Error('permission denied');
-      throw new Error('Invalid request');
-    }
-    return await res.json();
-  } catch (error) {
-    console.error('User List Error:', error);
-    redirect('/');
-  }
-}
-
-export async function userPermission(formData: FormData) {
+export async function userPermission(prevState: FormState, formData: FormData) {
   const accessToken = cookies().get('accessToken')?.value;
   try {
     const res = await fetchAPI.post(
@@ -61,6 +42,10 @@ export async function userPermission(formData: FormData) {
     }
   } catch (error) {
     console.error('Setting user permission Error:', error);
+    return {
+      message:
+        `${error}` || 'An error occurred during setting user permission.',
+    };
   }
   redirect('/userList');
 }
