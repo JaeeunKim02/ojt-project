@@ -1,4 +1,5 @@
 'use client';
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -6,6 +7,10 @@ import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
 import { userPermission } from '../../../../../api/userApi';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 //[x] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
 //[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
 const style = {
@@ -54,7 +59,7 @@ export default function UpdateModal({
         </Typography>
         <form
           action={action}
-          className="flex items-center flex-col gap-[10px] mt-[20px]"
+          className="flex items-center flex-col gap-[15px] mt-[20px]"
         >
           <TextField
             InputProps={{
@@ -65,20 +70,27 @@ export default function UpdateModal({
             variant="outlined"
             name="userId"
             defaultValue={userId}
+            sx={{ width: '195px' }}
           />
-          <TextField
-            // required
-            id="permission"
-            label="Permission"
-            variant="outlined"
-            name="permission"
-            defaultValue={defaultPermission}
-          />
+          <FormControl>
+            <InputLabel id="permission-label">permission</InputLabel>
+            <Select
+              id="permission"
+              name="permission"
+              label="permission"
+              defaultValue={defaultPermission}
+              sx={{ width: '195px' }}
+            >
+              <MenuItem value={'guest'}>guest</MenuItem>
+              <MenuItem value={'manager'}>manager</MenuItem>
+              <MenuItem value={'admin'}>admin</MenuItem>
+            </Select>
+          </FormControl>
           {/* [ ] */}
           <Button
             type="submit"
             variant="contained"
-            className="bg-[#1976d2] text-[#fff] mt-[10px]"
+            className="bg-[#1976d2] text-[#fff] mt-[5px]"
           >
             Set Permission
           </Button>

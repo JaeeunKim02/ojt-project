@@ -65,7 +65,12 @@ export default async function BasicTable({
                     <TableCell>{user.name}</TableCell>
                     <TableCell>{user.permission}</TableCell>
                     <TableCell>
-                      <Link href={`/userList/update/${user.id}`}>Update</Link>
+                      <Link
+                        href={`/userList/update/${user.id}`}
+                        style={{ color: '#1976d2' }}
+                      >
+                        Update
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}
