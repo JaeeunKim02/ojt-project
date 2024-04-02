@@ -22,6 +22,7 @@ export async function updateApplication(formData: FormData) {
     if (!res.ok) {
       console.log(res);
       if (res.status === 401) throw new Error('Unauthorized');
+      if (res.status === 403) throw new Error('permission denied');
       throw new Error('Invalid request');
     }
   } catch (error) {
@@ -51,6 +52,7 @@ export async function createApplication(
     );
     if (!res.ok) {
       if (res.status === 401) throw new Error('Unauthorized');
+      if (res.status === 403) throw new Error('permission denied');
       throw new Error('Invalid request');
     }
   } catch (error) {
