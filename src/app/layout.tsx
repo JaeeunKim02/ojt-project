@@ -2,10 +2,14 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Link from 'next/link'; //[x] prettier
-import { Button } from '@mui/material';
 import Loginbutton from './components/Loginbutton';
 import { cookies } from 'next/headers';
 import React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Image from 'next/image';
+import UserIcon from './components/UserIcon';
+import { userInfo } from '@/api/userApi';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -34,7 +38,7 @@ const header: React.CSSProperties = {
   padding: '20px',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -42,24 +46,56 @@ export default function RootLayout({
   const isLoggedIn: boolean = !!cookies().get('accessToken')?.value; //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
   const permission: string = cookies().get('permission')?.value ?? '';
   const userId: string = cookies().get('userId')?.value ?? '';
-  console.log(isLoggedIn, permission, userId);
+  let res = null;
+  if (isLoggedIn) {
+    res = await userInfo(userId);
+  }
+  console.log(Boolean(res));
   return (
     <html lang="en">
       <body className={inter.className} style={styles}>
-        <div className="navbar" style={header}>
-          <Button href="/" style={{ marginLeft: '20px' }}>
-            Home
-          </Button>
-          {/* button에 className의 적용이 딜레이 됨... */}
-          <Loginbutton isLoggedIn={isLoggedIn} />
-          <Link href="/signup">Sign up</Link>
-          <Button href={`/mypage/${userId}`}>My Page</Button>
-          {(permission === 'admin' || permission === 'manager') && (
-            <Button href="/userList?page=1&size=10">User List</Button>
-          )}
-          {/* <Button href="/application?page=1&size=10">User List</Button> */}
-          <Button href="/application?page=1&size=12">App List</Button>
-        </div>
+        <AppBar position="static" style={{ backgroundColor: 'gray' }}>
+          <Toolbar style={{ gap: '40px', margin: '10px' }}>
+            <Link
+              href="/"
+              style={{
+                marginLeft: '10px',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: '15px',
+              }}
+            >
+              <Image
+                src="/image/bagelcodeIcon.png"
+                alt="picture"
+                width="50"
+                height="50"
+              />
+              BAGELCODE
+            </Link>
+            {/* button에 className의 적용이 딜레이 됨... */}
+            <Link href="/application?page=1&size=12">APP LIST</Link>
+            {(permission === 'admin' || permission === 'manager') && (
+              <Link href="/userList?page=1&size=10">USER LIST</Link>
+            )}
+            {/* [ ]우상단에 프로필 보이게 하기, permission update 버튼은 manager 한테는 안보이게 하기 */}
+            <Link
+              href="/signup"
+              style={{ marginLeft: 'auto', textAlign: 'center' }}
+            >
+              SIGN UP
+            </Link>
+            <Loginbutton isLoggedIn={isLoggedIn} />
+            {res && (
+              <UserIcon
+                userId={res.id}
+                name={res.name}
+                permission={res.permission}
+              />
+            )}
+          </Toolbar>
+        </AppBar>
         <div>{children}</div>
       </body>
     </html>
