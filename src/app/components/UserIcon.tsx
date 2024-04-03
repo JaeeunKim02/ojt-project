@@ -53,12 +53,22 @@ export default function BasicMenu({
             {permission}
           </span>
         </div>
-        <MenuItem onClick={handleClose}>
-          <Link href={`/mypage/${userId}`}>my page</Link>
+        <MenuItem onClick={handleClose} style={{ padding: '0px' }}>
+          <Link
+            href={`/mypage/${userId}`}
+            style={{ padding: '10px', width: '100%' }}
+          >
+            my page
+          </Link>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <form action={logoutHandle}>
-            <button type="submit">log out</button>
+        <MenuItem onClick={handleClose} style={{ padding: '0px' }}>
+          <form action={logoutHandle} style={{ width: '100%' }}>
+            <button
+              type="submit"
+              style={{ padding: '10px', width: '100%', textAlign: 'start' }}
+            >
+              log out
+            </button>
           </form>
         </MenuItem>
       </Menu>
