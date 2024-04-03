@@ -33,7 +33,7 @@ export default function BasicMenu({
         // aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar sx={{ bgcolor: 'rgb(210,210,210)' }}>J</Avatar>
+        <Avatar sx={{ bgcolor: 'rgb(210,210,210)' }}>B</Avatar>
       </button>
       <Menu
         id="basic-menu"
@@ -44,19 +44,21 @@ export default function BasicMenu({
         //   'aria-labelledby': 'basic-button',
         // }}
       >
-        <div className="flex flex-row m-[20px] items-left justify-center gap-[40px]">
-          <div>
+        <div className="flex font-sans flex-row rounded-md border-gray-400 border-2 ml-[5px] mr-[5px] gap-[40px] p-[5px]">
+          <div className="w-[180px]">
             <p className="font-bold text-[20px]">{userId}</p>
-            <p>{name}</p>
+            <p className="text-gray-500 ml-[6px]">{name}</p>
           </div>
-          <p className="text-gray-400 text-[15px]">{permission}</p>
+          <span className="text-gray-400 text-center text-[15px] self-center p-[5px] rounded-full bg-gray-200">
+            {permission}
+          </span>
         </div>
         <MenuItem onClick={handleClose}>
-          <Link href={`/mypage/${userId}`}>My Page</Link>
+          <Link href={`/mypage/${userId}`}>my page</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <form action={logoutHandle}>
-            <button type="submit">Log Out</button>
+            <button type="submit">log out</button>
           </form>
         </MenuItem>
       </Menu>

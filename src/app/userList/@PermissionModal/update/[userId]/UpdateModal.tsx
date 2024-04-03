@@ -87,13 +87,23 @@ export default function UpdateModal({
             </Select>
           </FormControl>
           {/* [ ] */}
-          <Button
-            type="submit"
-            variant="contained"
-            className="bg-[#1976d2] text-[#fff] mt-[5px]"
-          >
-            Set Permission
-          </Button>
+          {defaultPermission === 'admin' ? (
+            <Button
+              type="submit"
+              variant="contained"
+              className="bg-[#1976d2] text-[#fff] mt-[5px]"
+            >
+              Set Permission
+            </Button>
+          ) : (
+            <Button
+              disabled
+              variant="contained"
+              className="bg-[#1976d2] text-[#fff] mt-[5px]"
+            >
+              Set Permission
+            </Button>
+          )}
           <p className="text-red-500">{state.message}</p>
         </form>
       </Box>

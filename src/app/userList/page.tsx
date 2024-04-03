@@ -29,6 +29,7 @@ export default async function BasicTable({
   const size = Number(searchParams?.size);
   try {
     const accessToken = cookies().get('accessToken')?.value;
+    const permission = cookies().get('permission')?.value;
     const res = await fetchAPI.get(
       `/user/list?page=${page}&size=${size}`,
       `${accessToken}`,
@@ -40,17 +41,17 @@ export default async function BasicTable({
     } else {
       const dto = await res.json();
       return (
-        <div className="flex flex-col bg-white p-[50px] gap-[20px]">
+        <div className="flex flex-col bg-white pt-[50px] pl-[20%] pr-[20%] gap-[20px]">
           <h1 className="text-[25px] font-bold">Gaia Admin</h1>
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <TableContainer component={Paper}>
-            <Table style={{ minWidth: '650px' }} aria-label="simple table">
+            <Table style={{ minWidth: '500px' }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>User ID</TableCell>
-                  <TableCell>User Name</TableCell>
-                  <TableCell>Permission</TableCell>
-                  <TableCell>Update permission</TableCell>
+                  <TableCell align="center">User ID</TableCell>
+                  <TableCell align="center">User Name</TableCell>
+                  <TableCell align="center">Permission</TableCell>
+                  <TableCell align="center">Update permission</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -59,18 +60,22 @@ export default async function BasicTable({
                     key={user.id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" align="center">
                       {user.id}
                     </TableCell>
-                    <TableCell>{user.name}</TableCell>
-                    <TableCell>{user.permission}</TableCell>
-                    <TableCell>
-                      <Link
-                        href={`/userList/update/${user.id}`}
-                        style={{ color: '#1976d2' }}
-                      >
-                        Update
-                      </Link>
+                    <TableCell align="center">{user.name}</TableCell>
+                    <TableCell align="center">{user.permission}</TableCell>
+                    <TableCell align="center">
+                      {permission === 'admin' ? (
+                        <Link
+                          href={`/userList/update/${user.id}`}
+                          style={{ color: '#1976d2' }}
+                        >
+                          Update
+                        </Link>
+                      ) : (
+                        <span className="text-gray-300">Update</span>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
