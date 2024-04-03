@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
 import { useFormState } from 'react-dom';
 import { userInfo } from '../../../../../api/userApi';
+import { cookies } from 'next/headers';
 //[x] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
 //[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
 const style = {
@@ -23,9 +24,14 @@ const style = {
 };
 
 export default async function Page({ params }: { params: { userId: string } }) {
+  const recentUser = cookies().get('permission')?.value ?? '';
   const res = await userInfo(params.userId);
   console.log(res.id, res.name, res.permission);
   return (
-    <UpdateModal userId={params.userId} defaultPermission={res.permission} />
+    <UpdateModal
+      userId={params.userId}
+      defaultPermission={res.permission}
+      recentUser={recentUser}
+    />
   );
 }

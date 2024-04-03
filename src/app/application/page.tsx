@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import AppBox from './components/AppBox';
+import Tooltip from '@mui/material/Tooltip';
 
 interface AppsDto {
   id: number;
@@ -55,15 +56,17 @@ export default async function BasicTable({
           <h1 className="text-[25px] font-bold">Gaia Applications</h1>
           {permission === 'manager' || permission === 'admin' ? (
             <Link
-              className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-blue-400 hover:bg-blue-500"
+              className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-orange-500 hover:bg-orange-600"
               href="/application/create"
             >
               + Add application
             </Link>
           ) : (
-            <span className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-gray-300">
-              + Add application
-            </span>
+            <Tooltip title="guest cannot access">
+              <span className="flex rounded-lg text-[#fff] self-end items-center justify-center text-center h-[45px] w-[200px] text-[18px] p-[10px] bg-gray-300">
+                + Add application
+              </span>
+            </Tooltip>
           )}
           {/* 버튼 쓰면 모달창 안 띄워짐 */}
           <div className="grid  gap-x-6 gap-y-4 xl:grid-cols-3 lg:grid-cols-2 sm:grid-cols-1">

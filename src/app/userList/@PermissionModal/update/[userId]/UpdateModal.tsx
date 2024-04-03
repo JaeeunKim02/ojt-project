@@ -30,9 +30,11 @@ const style = {
 export default function UpdateModal({
   userId,
   defaultPermission,
+  recentUser,
 }: {
   userId: string;
   defaultPermission: string;
+  recentUser: string;
 }) {
   const router = useRouter();
   const [state, action] = useFormState(userPermission, { message: '' });
@@ -87,7 +89,7 @@ export default function UpdateModal({
             </Select>
           </FormControl>
           {/* [ ] */}
-          {defaultPermission === 'admin' ? (
+          {recentUser === 'admin' ? (
             <Button
               type="submit"
               variant="contained"

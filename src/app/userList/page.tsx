@@ -11,6 +11,7 @@ import { Button } from '@mui/material';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import fetchAPI from '@/api/api';
+import Tooltip from '@mui/material/Tooltip';
 
 interface UsersDto {
   id: string;
@@ -74,7 +75,9 @@ export default async function BasicTable({
                           Update
                         </Link>
                       ) : (
-                        <span className="text-gray-300">Update</span>
+                        <Tooltip title="only admin can access">
+                          <span className="text-gray-300">Update</span>
+                        </Tooltip>
                       )}
                     </TableCell>
                   </TableRow>
