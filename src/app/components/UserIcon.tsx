@@ -49,7 +49,7 @@ export default function BasicMenu({
             <p className="font-bold text-[20px]">{userId}</p>
             <p className="text-gray-500 ml-[6px]">{name}</p>
           </div>
-          <span className="text-gray-400 text-center text-[15px] self-center p-[5px] rounded-full bg-gray-200">
+          <span className="text-gray-400 text-center text-[15px] self-center p-[7px] rounded-full bg-gray-200">
             {permission}
           </span>
         </div>
