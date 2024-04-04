@@ -23,7 +23,8 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
       password: formData.get('password'),
     });
     if (!res.ok) {
-      throw new Error('Login failed');
+      if (res.status === 401) throw new Error('Login failed');
+      throw new Error('Invalid request');
     } else {
       console.log(res);
       const dto: LoginResponseDto = await res.json(); // 안될 때 awiat Promise.resolve(res.json());

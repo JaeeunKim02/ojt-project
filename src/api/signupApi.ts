@@ -19,7 +19,7 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
     });
     if (!res.ok) {
       if (res.status === 409) throw new Error('User id already exists!');
-      throw new Error('Signup failed');
+      throw new Error('Invalid request');
     }
   } catch (error) {
     console.error('Signup Error:', error);
