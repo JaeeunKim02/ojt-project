@@ -16,8 +16,6 @@ export default async function BasicTable({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   'use server';
-  // const searchParams = request.nextUrl.searchParams;
-  // console.log(params);
   console.log(searchParams);
   const page = Number(searchParams?.page);
   const size = Number(searchParams?.size);

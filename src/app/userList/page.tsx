@@ -7,7 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper'; //포스트잇처럼 화면에서 도드라짐-elevation:튀어나옴, outlined:윤곽선
-import { Button } from '@mui/material';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
 import fetchAPI from '@/api/api';
@@ -24,8 +23,6 @@ export default async function BasicTable({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   'use server';
-  // const searchParams = request.nextUrl.searchParams;
-  // console.log(params);
   const page = Number(searchParams?.page);
   const size = Number(searchParams?.size);
   try {

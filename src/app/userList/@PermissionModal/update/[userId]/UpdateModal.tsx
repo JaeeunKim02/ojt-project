@@ -11,8 +11,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-//[x] go to app(페이지로 라우팅) 한 뒤에 update 할 수 있게, 기존의 내용이 보이는 상태이어야 함.
-//[x] 뒤로가기, 홈 버튼 항상 보일 수 있게
+
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -52,7 +51,6 @@ export default function UpdateModal({
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Set User Permission
         </Typography>
-        {/* [ ] */}
         <Typography
           id="modal-modal-description"
           className="mt-[5px] text-[rgb(150,150,150)] text-[15.5px]"
@@ -88,7 +86,6 @@ export default function UpdateModal({
               <MenuItem value={'admin'}>admin</MenuItem>
             </Select>
           </FormControl>
-          {/* [ ] */}
           {recentUser === 'admin' ? (
             <Button
               type="submit"

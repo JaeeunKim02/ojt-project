@@ -5,7 +5,6 @@ import React from 'react';
 import { userInfo } from '../../../api/userApi';
 
 const styles: React.CSSProperties = {
-  // height: '80vh',
   flexDirection: 'row',
   display: 'flex',
   justifyContent: 'flex-start', // 시작 지점에서 아이템들 정렬

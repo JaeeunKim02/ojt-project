@@ -72,7 +72,6 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
               <Button href="/application?page=1&size=12" variant="outlined">
                 Cancel
               </Button>
-              {/* [ ] */}
               {(permission === 'manager' || permission === 'admin') && (
                 <Button
                   type="submit"
@@ -90,6 +89,5 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
   } catch (error) {
     console.error('Cannot get application.', error);
     return <>Sorry... Application not found.</>;
-    // return { message: `${error}` || 'An error occurred.' };
   }
 }

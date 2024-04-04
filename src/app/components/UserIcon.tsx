@@ -26,13 +26,7 @@ export default function BasicMenu({
 
   return (
     <div>
-      <button
-        id="basic-button"
-        // aria-controls={open ? 'basic-menu' : undefined}
-        // aria-haspopup="true"
-        // aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
+      <button id="basic-button" onClick={handleClick}>
         <Avatar sx={{ bgcolor: 'rgb(210,210,210)' }}>B</Avatar>
       </button>
       <Menu
@@ -40,9 +34,6 @@ export default function BasicMenu({
         anchorEl={anchorEl} //popover 위치
         open={open}
         onClose={handleClose}
-        // MenuListProps={{
-        //   'aria-labelledby': 'basic-button',
-        // }}
       >
         <div className="flex font-sans flex-row rounded-md border-gray-400 border-2 ml-[5px] mr-[5px] gap-[40px] p-[5px]">
           <div className="w-[180px]">

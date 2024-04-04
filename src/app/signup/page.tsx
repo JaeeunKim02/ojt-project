@@ -29,7 +29,6 @@ function SignupPage() {
           variant="filled"
           name="password"
         />
-        {/* [ ] */}
         <Button
           type="submit"
           variant="contained"

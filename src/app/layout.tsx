@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Link from 'next/link'; //[x] prettier
+import Link from 'next/link';
 import Loginbutton from './components/Loginbutton';
 import { cookies } from 'next/headers';
 import React from 'react';
@@ -74,12 +74,10 @@ export default async function RootLayout({
               />
               BAGELCODE
             </Link>
-            {/* button에 className의 적용이 딜레이 됨... */}
             <Link href="/application?page=1&size=12">APP LIST</Link>
             {(permission === 'admin' || permission === 'manager') && (
               <Link href="/userList?page=1&size=10">USER LIST</Link>
             )}
-            {/* [ ]우상단에 프로필 보이게 하기, permission update 버튼은 manager 한테는 안보이게 하기 */}
             <Link
               href="/signup"
               style={{ marginLeft: 'auto', textAlign: 'center' }}

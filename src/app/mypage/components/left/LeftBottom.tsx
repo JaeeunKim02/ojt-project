@@ -1,4 +1,3 @@
-import { styles } from './LeftNavigation';
 import React from 'react';
 
 export const content: React.CSSProperties = {

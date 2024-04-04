@@ -15,13 +15,13 @@ const fetchAPI = {
     let headers;
     if (accessToken) {
       headers = {
-        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
+        'Content-Type': 'application/json',
         accept: 'application/json',
         Authorization: `Bearer ${accessToken}`,
       };
     } else {
       headers = {
-        'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
+        'Content-Type': 'application/json',
         accept: 'application/json',
       };
     }
@@ -31,7 +31,7 @@ const fetchAPI = {
   async put(path: string, data: Record<string, unknown>, accessToken?: string) {
     const url = `${process.env.API_URL}${path}`;
     const headers = {
-      'Content-Type': 'application/json', //요청 본문 타입이 json 형식임을 나타냄
+      'Content-Type': 'application/json',
       accept: 'application/json',
       Authorization: `Bearer ${accessToken}`,
     };
