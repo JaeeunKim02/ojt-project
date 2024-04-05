@@ -76,9 +76,9 @@ export default async function RootLayout({
               />
               BAGELCODE
             </Link>
-            <Link href="/application?page=1&size=12">APP LIST</Link>
+            <Link href="/application?page=1">APP LIST</Link>
             {(permission === 'admin' || permission === 'manager') && (
-              <Link href="/userList?page=1&size=10">USER LIST</Link>
+              <Link href="/userList?page=1">USER LIST</Link>
             )}
             {!isLoggedIn && (
               <Link

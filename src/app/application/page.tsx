@@ -17,15 +17,12 @@ export default async function BasicTable({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   'use server';
-  console.log(searchParams);
   const page = Number(searchParams?.page);
-  const size = Number(searchParams?.size);
-  console.log(page, size);
   try {
     const accessToken = cookies().get('accessToken')?.value;
     const permission = cookies().get('permission')?.value;
     const res = await fetchAPI.get(
-      `/application/list?page=${page}&size=${size}`,
+      `/application/list?page=${page}&size=12`,
       `${accessToken}`,
     );
     if (!res.ok) {
@@ -81,7 +78,7 @@ export default async function BasicTable({
               <Link
                 href={{
                   pathname: '/application',
-                  query: { page: `${page - 1}`, size: `${size}` },
+                  query: { page: `${page - 1}` },
                 }}
               >
                 이전
@@ -94,7 +91,7 @@ export default async function BasicTable({
               <Link
                 href={{
                   pathname: '/application',
-                  query: { page: `${page + 1}`, size: `${size}` },
+                  query: { page: `${page + 1}` },
                 }}
               >
                 다음

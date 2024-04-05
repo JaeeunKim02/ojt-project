@@ -24,12 +24,11 @@ export default async function BasicTable({
 }) {
   'use server';
   const page = Number(searchParams?.page);
-  const size = Number(searchParams?.size);
   try {
     const accessToken = cookies().get('accessToken')?.value;
     const permission = cookies().get('permission')?.value;
     const res = await fetchAPI.get(
-      `/user/list?page=${page}&size=${size}`,
+      `/user/list?page=${page}&size=10`,
       `${accessToken}`,
     );
     if (!res.ok) {
@@ -89,7 +88,7 @@ export default async function BasicTable({
               <Link
                 href={{
                   pathname: '/userList',
-                  query: { page: `${page - 1}`, size: `${size}` },
+                  query: { page: `${page - 1}` },
                 }}
               >
                 이전
@@ -102,7 +101,7 @@ export default async function BasicTable({
               <Link
                 href={{
                   pathname: '/userList',
-                  query: { page: `${page + 1}`, size: `${size}` },
+                  query: { page: `${page + 1}` },
                 }}
               >
                 다음

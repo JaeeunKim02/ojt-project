@@ -50,5 +50,5 @@ export async function userPermission(prevState: FormState, formData: FormData) {
         `${error}` || 'An error occurred during setting user permission.',
     };
   }
-  redirect('/userList?page=1&size=10');
+  redirect('/userList?page=1');
 }

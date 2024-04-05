@@ -69,7 +69,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
               defaultValue={dto.description}
             />
             <div className="flex flex-row gap-[15px] m-[20px]">
-              <Button href="/application?page=1&size=12" variant="outlined">
+              <Button href="/application?page=1" variant="outlined">
                 Cancel
               </Button>
               {(permission === 'manager' || permission === 'admin') && (
