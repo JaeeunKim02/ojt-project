@@ -19,23 +19,10 @@ export const metadata: Metadata = {
 };
 
 const styles: React.CSSProperties = {
-  height: '100vh',
+  height: '100%',
   display: 'flex',
   flexDirection: 'column',
   backgroundColor: 'rgb(255,255,255)',
-};
-
-const header: React.CSSProperties = {
-  height: '6.5%',
-  width: '100%',
-  display: 'flex',
-  left: '0px',
-  top: '0px',
-  backgroundColor: 'rgb(230,230,230)',
-  alignItems: 'center',
-  gap: '30px', // 아이템들 사이 간격
-  color: 'rgb(0,0,0)',
-  padding: '20px',
 };
 
 export default async function RootLayout({

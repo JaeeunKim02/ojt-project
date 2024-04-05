@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import fetchAPI from './api/api';
 
 export async function middleware(request: NextRequest) {
   // 리다이렉트 조건
   if (request.nextUrl.pathname === '/') {
+    console.log('middleware "/" called');
     const accessToken = request.cookies.get('accessToken')?.value;
     const userId = request.cookies.get('userId')?.value;
 
@@ -11,17 +13,12 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    const res = await fetch(`${process.env.API_URL}/user/info/${userId}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const res = await fetchAPI.get(`/user/info/${userId}`, `${accessToken}`);
     if (res.ok) {
       return NextResponse.next();
     } else {
       console.error('Authentication error');
-      let response = NextResponse.next();
+      const response = NextResponse.next();
       response.cookies.delete('accessToken');
       response.cookies.delete('userId');
       response.cookies.delete('permission');
@@ -36,17 +33,12 @@ export async function middleware(request: NextRequest) {
   ) {
     const accessToken = request.cookies.get('accessToken')?.value;
     const userId = request.cookies.get('userId')?.value;
-
+    console.log('middleware "/mypage" called');
     if (!accessToken) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    const res = await fetch(`${process.env.API_URL}/user/info/${userId}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const res = await fetchAPI.get(`/user/info/${userId}`, `${accessToken}`);
     if (res.ok) {
       return NextResponse.next();
     } else {

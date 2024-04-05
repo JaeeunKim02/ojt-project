@@ -86,23 +86,32 @@ export default function UpdateModal({
               <MenuItem value={'admin'}>admin</MenuItem>
             </Select>
           </FormControl>
-          {recentUser === 'admin' ? (
+          <div className="mt-[5px]">
             <Button
-              type="submit"
-              variant="contained"
-              className="bg-[#1976d2] text-[#fff] mt-[5px]"
+              href="/userList?page=1"
+              variant="outlined"
+              style={{ marginRight: '10px' }}
             >
-              Set Permission
+              Cancel
             </Button>
-          ) : (
-            <Button
-              disabled
-              variant="contained"
-              className="bg-[#1976d2] text-[#fff] mt-[5px]"
-            >
-              Set Permission
-            </Button>
-          )}
+            {recentUser === 'admin' ? (
+              <Button
+                type="submit"
+                variant="contained"
+                className="bg-[#1976d2] text-[#fff]"
+              >
+                Set Permission
+              </Button>
+            ) : (
+              <Button
+                disabled
+                variant="contained"
+                className="bg-[#1976d2] text-[#fff]"
+              >
+                Set Permission
+              </Button>
+            )}
+          </div>
           <p className="text-red-500">{state.message}</p>
         </form>
       </Box>
