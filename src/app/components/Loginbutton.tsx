@@ -6,7 +6,10 @@ const Loginbutton: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
   return (
     <>
       {isLoggedIn ? (
-        <form action={logoutHandle}>
+        <form
+          action={logoutHandle}
+          style={{ marginLeft: 'auto', textAlign: 'center' }}
+        >
           <button type="submit">LOG OUT</button>
         </form>
       ) : (

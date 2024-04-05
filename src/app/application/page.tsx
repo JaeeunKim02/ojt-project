@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import AppBox from './components/AppBox';
 import Tooltip from '@mui/material/Tooltip';
+import fetchAPI from '../../api/api';
 
 interface AppsDto {
   id: number;
@@ -23,15 +24,9 @@ export default async function BasicTable({
   try {
     const accessToken = cookies().get('accessToken')?.value;
     const permission = cookies().get('permission')?.value;
-    const res = await fetch(
-      `${process.env.API_URL}/application/list?page=${page}&size=${size}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          accept: 'application/json',
-        },
-      },
+    const res = await fetchAPI.get(
+      `/application/list?page=${page}&size=${size}`,
+      `${accessToken}`,
     );
     if (!res.ok) {
       console.log(res);

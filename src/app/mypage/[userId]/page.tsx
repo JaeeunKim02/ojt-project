@@ -17,6 +17,9 @@ export default async function Mypage({
   params: { userId: string };
 }) {
   const res = await userInfo(params.userId);
+  if (res.message) {
+    return <>{res.message}</>;
+  }
   return (
     <>
       <div style={styles}>

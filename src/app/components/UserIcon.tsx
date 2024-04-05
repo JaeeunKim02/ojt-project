@@ -27,7 +27,9 @@ export default function BasicMenu({
   return (
     <div>
       <button id="basic-button" onClick={handleClick}>
-        <Avatar sx={{ bgcolor: 'rgb(210,210,210)' }}>B</Avatar>
+        <Avatar sx={{ bgcolor: 'rgb(210,210,210)' }}>
+          {userId[0].toUpperCase()}
+        </Avatar>
       </button>
       <Menu
         id="basic-menu"

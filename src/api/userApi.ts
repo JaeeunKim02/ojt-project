@@ -22,7 +22,10 @@ export async function userInfo(userId: string) {
     return await res.json();
   } catch (error) {
     console.error('User Information Error:', error);
-    redirect('/');
+    return {
+      message:
+        `${error}` || 'An error occurred during getting user information.',
+    };
   }
 }
 

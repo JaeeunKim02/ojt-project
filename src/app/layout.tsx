@@ -49,8 +49,10 @@ export default async function RootLayout({
   let res = null;
   if (isLoggedIn) {
     res = await userInfo(userId);
+    if (res.message) {
+      return <>{res.message}</>;
+    }
   }
-  console.log(Boolean(res));
   return (
     <html lang="en">
       <body className={inter.className} style={styles}>
@@ -78,12 +80,14 @@ export default async function RootLayout({
             {(permission === 'admin' || permission === 'manager') && (
               <Link href="/userList?page=1&size=10">USER LIST</Link>
             )}
-            <Link
-              href="/signup"
-              style={{ marginLeft: 'auto', textAlign: 'center' }}
-            >
-              SIGN UP
-            </Link>
+            {!isLoggedIn && (
+              <Link
+                href="/signup"
+                style={{ marginLeft: 'auto', textAlign: 'center' }}
+              >
+                SIGN UP
+              </Link>
+            )}
             <Loginbutton isLoggedIn={isLoggedIn} />
             {res && (
               <UserIcon
