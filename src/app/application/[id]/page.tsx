@@ -15,7 +15,7 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
   const permission = cookies().get('permission')?.value;
   try {
     const res = await fetchAPI.get(
-      `${process.env.API_URL}/application/${params.id}`,
+      `/application/${params.id}`,
       `${accessToken}`,
     );
     if (!res.ok) {
