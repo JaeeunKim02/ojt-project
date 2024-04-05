@@ -2,7 +2,7 @@
 import LeftNavigation from '../components/left/LeftNavigation';
 import RightComponent from '../components/right/RightComponent';
 import React from 'react';
-import { userInfo } from '../../../api/userApi';
+import { myInfo } from '../../../api/userApi';
 
 const styles: React.CSSProperties = {
   flexDirection: 'row',
@@ -16,9 +16,12 @@ export default async function Mypage({
 }: {
   params: { userId: string };
 }) {
-  const res = await userInfo(params.userId);
+  const res = await myInfo();
   if (res.message) {
     return <>{res.message}</>;
+  }
+  if (res.id !== params.userId) {
+    return <>Invalid request</>;
   }
   return (
     <>

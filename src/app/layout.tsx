@@ -9,7 +9,7 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Image from 'next/image';
 import UserIcon from './components/UserIcon';
-import { userInfo } from '@/api/userApi';
+import { myInfo } from '@/api/userApi';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,11 +32,10 @@ export default async function RootLayout({
 }>) {
   const isLoggedIn: boolean = !!cookies().get('accessToken')?.value; //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
   const permission: string = cookies().get('permission')?.value ?? '';
-  const userId: string = cookies().get('userId')?.value ?? '';
   console.log('this is layout');
   let res = null;
   if (isLoggedIn) {
-    res = await userInfo(userId);
+    res = await myInfo();
     if (res.message) {
       return <>{res.message}</>;
     }

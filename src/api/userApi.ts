@@ -29,6 +29,23 @@ export async function userInfo(userId: string) {
   }
 }
 
+export async function myInfo() {
+  const accessToken = cookies().get('accessToken')?.value;
+  try {
+    const res = await fetchAPI.get(`/auth/validate`, `${accessToken}`);
+    if (!res.ok) {
+      if (res.status === 401) throw new Error('Unauthorized');
+      throw new Error('Invalid request');
+    }
+    return await res.json();
+  } catch (error) {
+    console.error('Cannot get My information:', error);
+    return {
+      message: `${error}` || 'An error occurred during getting my information.',
+    };
+  }
+}
+
 export async function userPermission(prevState: FormState, formData: FormData) {
   const accessToken = cookies().get('accessToken')?.value;
   try {

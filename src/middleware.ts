@@ -7,13 +7,12 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname === '/') {
     console.log('middleware "/" called');
     const accessToken = request.cookies.get('accessToken')?.value;
-    const userId = request.cookies.get('userId')?.value;
 
     if (!accessToken) {
       return NextResponse.next();
     }
 
-    const res = await fetchAPI.get(`/user/info/${userId}`, `${accessToken}`);
+    const res = await fetchAPI.get(`/auth/validate`, `${accessToken}`);
     if (res.ok) {
       console.log('middleware "/" is done');
       return NextResponse.next();
@@ -33,18 +32,20 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname.startsWith('/application')
   ) {
     const accessToken = request.cookies.get('accessToken')?.value;
-    const userId = request.cookies.get('userId')?.value;
     console.log('middleware "/mypage" called');
     if (!accessToken) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    const res = await fetchAPI.get(`/user/info/${userId}`, `${accessToken}`);
+    const res = await fetchAPI.get(`/auth/validate`, `${accessToken}`);
     if (res.ok) {
-      const user = await res.json();
-      if (user.permission === 'guest') {
-        return NextResponse.redirect(new URL('/', request.url));
-      } else return NextResponse.next();
+      if (request.nextUrl.pathname === '/userList') {
+        const user = await res.json();
+        if (user.permission === 'guest') {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+      return NextResponse.next();
     } else {
       console.error('Authentication error');
       return NextResponse.redirect(new URL('/login', request.url));
