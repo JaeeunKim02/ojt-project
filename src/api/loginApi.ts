@@ -36,6 +36,7 @@ async function onFormPostAction(prevState: FormState, formData: FormData) {
     console.error('Login error:', error);
     return { message: `${error}` || 'An error occurred during login.' };
   }
+  console.log('before redirect');
   redirect('/');
 }
 

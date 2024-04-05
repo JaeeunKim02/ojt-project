@@ -33,6 +33,7 @@ export default async function RootLayout({
   const isLoggedIn: boolean = !!cookies().get('accessToken')?.value; //쿠키의 value 속성은 쿠키의 값을 'string' 형태로 반환하기 때문
   const permission: string = cookies().get('permission')?.value ?? '';
   const userId: string = cookies().get('userId')?.value ?? '';
+  console.log('this is layout');
   let res = null;
   if (isLoggedIn) {
     res = await userInfo(userId);

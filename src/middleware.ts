@@ -15,6 +15,7 @@ export async function middleware(request: NextRequest) {
 
     const res = await fetchAPI.get(`/user/info/${userId}`, `${accessToken}`);
     if (res.ok) {
+      console.log('middleware "/" is done');
       return NextResponse.next();
     } else {
       console.error('Authentication error');
@@ -40,7 +41,10 @@ export async function middleware(request: NextRequest) {
 
     const res = await fetchAPI.get(`/user/info/${userId}`, `${accessToken}`);
     if (res.ok) {
-      return NextResponse.next();
+      const user = await res.json();
+      if (user.permission === 'guest') {
+        return NextResponse.redirect(new URL('/', request.url));
+      } else return NextResponse.next();
     } else {
       console.error('Authentication error');
       return NextResponse.redirect(new URL('/login', request.url));

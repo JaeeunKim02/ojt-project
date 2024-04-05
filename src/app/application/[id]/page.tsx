@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { Button, TextField } from '@mui/material';
 import { updateApplication } from '../../../api/applicationApi';
 import Image from 'next/image';
+import fetchAPI from '../../../api/api';
 const textFieldStyle = {
   marginTop: '10px',
   marginBottom: '30px',
@@ -13,12 +14,10 @@ export default async function GotoApp({ params }: { params: { id: string } }) {
   const accessToken = cookies().get('accessToken')?.value;
   const permission = cookies().get('permission')?.value;
   try {
-    const res = await fetch(`${process.env.API_URL}/application/${params.id}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const res = await fetchAPI.get(
+      `${process.env.API_URL}/application/${params.id}`,
+      `${accessToken}`,
+    );
     if (!res.ok) {
       if (res.status === 401) throw new Error('Unauthorized');
       if (res.status === 403) throw new Error('permission denied');
